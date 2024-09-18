@@ -7,6 +7,12 @@ final int GAMEOVER = 3;
 //font
 PFont Soccer;
 
+//entity variables
+float red1x, red1y, red2x, red2y, blue1x, blue1y, blue2x, blue2y, playerd;
+
+//keyboard variables
+boolean wkey, skey, akey, dkey, upkey, downkey, leftkey, rightkey;
+
 void setup() {
   size(800, 600);
   
@@ -15,6 +21,20 @@ void setup() {
   rectMode(CENTER);
   
   Soccer = createFont("Soccer.otf", 200);
+  
+  //intialize players
+  red1x = 300;
+  red1y = height/2;
+  red2x = 55;
+  red2y = height/2;
+  blue1x = 500;
+  blue1y = height/2;
+  blue2x = 745;
+  blue2y = height/2;
+  playerd = 60;
+  
+  //initialize keyboard variables
+  wkey = skey = akey = dkey = upkey = downkey = leftkey = rightkey = false;
 }
 
 void draw() {
