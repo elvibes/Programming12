@@ -69,6 +69,13 @@ void game() {
   if (blue1x > width-30) blue1x = width-30;
   if (blue1y > height-30) blue1y = height-30;
   if (blue1y < 30) blue1y = 30;
+  
+  //players bumping into each other
+  if(dist(red1x, red1y, red2x, red2y) <= playerd) {
+   red1x = red1x + 5;
+   red1y = red1y + 5;
+  }
+  
 }
 
 void gameClicks() {

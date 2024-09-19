@@ -8,7 +8,7 @@ final int GAMEOVER = 3;
 PFont Soccer;
 
 //entity variables
-float red1x, red1y, red2x, red2y, blue1x, blue1y, blue2x, blue2y, playerd;
+float red1x, red1y, red2x, red2y, blue1x, blue1y, blue2x, blue2y, playerd, vx, vy;
 
 //keyboard variables
 boolean wkey, skey, akey, dkey, upkey, downkey, leftkey, rightkey;
