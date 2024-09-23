@@ -9,10 +9,10 @@ PFont Soccer;
 
 //entity variables
 float red1x, red1y, red2x, red2y, blue1x, blue1y, blue2x, blue2y, playerd;
-float ballx, bally, balld, vx, vy;
+float ballx, bally, balld, vx, vy, vxred1, vyred1, vxblue1, vyblue1, vxred2, vyred2, vxblue2, vyblue2;
 
 //scoring
-int leftscore, rightscore, timer;
+int leftscore, rightscore;
 
 //keyboard variables
 boolean wkey, skey, akey, dkey, upkey, downkey, leftkey, rightkey;
@@ -36,6 +36,14 @@ void setup() {
   blue2x = 745;
   blue2y = height/2;
   playerd = 60;
+  vxred1 = 0;
+  vyred1 = 0;
+  vxblue1 = 0;
+  vyblue1 = 0;
+  vxred2 = 0;
+  vyred2 = 0;
+  vxblue2 = 0;
+  vyblue2 = 0;
   
   //initialize ball
   ballx = width/2;
@@ -44,12 +52,10 @@ void setup() {
   vx = 0;
   vy = 0;
   
+  
   //initialize scoreboard
   leftscore = 0;
   rightscore = 0;
-  
-  //initialize timer
-  timer = 0;
 
   //initialize keyboard variables
   wkey = skey = akey = dkey = upkey = downkey = leftkey = rightkey = false;
