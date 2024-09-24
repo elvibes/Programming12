@@ -44,6 +44,15 @@ void game() {
 
   //draw players
   noStroke();
+  
+  //arms
+  if (armsOn == true) {
+    rect(red1x - 15, red1y - 30, 30, 15);
+    rect(red1x + 15, red1y + 30, 30, 15);
+  } else {
+    rect(red1x - 15, red1y + 30, 30, 15);
+    rect(red1x + 15, red1y - 30, 30, 15);
+  }
   fill(255, 149, 149);
   circle(red1x, red1y, playerd);
   circle(red2x, red2y, playerd);
@@ -51,11 +60,23 @@ void game() {
   fill(158, 149, 255);
   circle(blue1x, blue1y, playerd);
   circle(blue2x, blue2y, playerd);
+  
 
   //move players
+  int  count = 0;
   if (wkey == true) red1y = red1y - 5;
   if (skey == true) red1y = red1y + 5;
-  if (akey == true) red1x = red1x - 5;
+  if (akey == true) {
+    red1x = red1x - 5;
+    
+    while(count <= 10) {
+      count = count + 1;
+      if (count == 10) {
+        armsOn = !armsOn;
+      }
+    }
+      
+  }
   if (dkey == true) red1x = red1x + 5;
 
   if (wkey == true) red2y = red2y - 5;
@@ -202,19 +223,21 @@ void reset() {
   blue1y = height/2;
   blue2x = 745;
   blue2y = height/2;
+  armsOn = true;
 
   ballx = width/2;
   bally = height/2;
   balld = 40;
   vx = 0;
   vy = 0;
+  
+  if (leftscore == 5 || rightscore == 5) {
+    mode = GAMEOVER;
+  }
 }
 
 void gameClicks() {
   if (dist(mouseX, mouseY, 400, 600) < 50) {
     mode = INTRO;
-    reset();
-    leftscore = 0;
-    rightscore = 0;
   }
 }

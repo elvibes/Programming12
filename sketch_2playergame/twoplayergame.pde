@@ -10,6 +10,7 @@ PFont Soccer;
 //entity variables
 float red1x, red1y, red2x, red2y, blue1x, blue1y, blue2x, blue2y, playerd;
 float ballx, bally, balld, vx, vy, vxred1, vyred1, vxblue1, vyblue1, vxred2, vyred2, vxblue2, vyblue2;
+boolean armsOn;
 
 //scoring
 int leftscore, rightscore;
@@ -44,6 +45,9 @@ void setup() {
   vyred2 = 0;
   vxblue2 = 0;
   vyblue2 = 0;
+  
+  //initialize arms
+  armsOn = true;
   
   //initialize ball
   ballx = width/2;

@@ -1,14 +1,22 @@
 void intro() {
   soccerfield();
+  reset();
+  leftscore = 0;
+  rightscore = 0;
   fill(255);
   textSize(150);
   text("MINI SOCCER", 400, 100);
   
+  //instructions
+  
   textSize(50);
+  fill(255, 149, 149);
   text("PLAYER 1", 220, 240);
+  fill(158, 149, 255);
   text("PLAYER 2", 550, 240);
   
   textSize(30);
+  fill(255);
   text("Press W to move up", 220, 300);
   text("A to move left", 220, 330);
   text("S to move down", 220, 360);
