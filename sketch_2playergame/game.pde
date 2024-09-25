@@ -44,7 +44,7 @@ void game() {
 
   //draw players
   noStroke();
-  
+
   //arms
   if (armsOn == true) {
     rect(red1x - 15, red1y - 30, 30, 15);
@@ -61,21 +61,28 @@ void game() {
   circle(blue1x, blue1y, playerd);
   circle(blue2x, blue2y, playerd);
   
+  fill(0);
+  circle(red1x, red1y, playerd-30);
+  circle(red2x, red2y, playerd-30);
+  circle(blue1x, blue1y, playerd-30);
+  circle(blue2x, blue2y, playerd-30);
+
 
   //move players
-  int  count = 0;
+  int  count = 10;
   if (wkey == true) red1y = red1y - 5;
   if (skey == true) red1y = red1y + 5;
   if (akey == true) {
     red1x = red1x - 5;
-    
-    while(count <= 10) {
-      count = count + 1;
-      if (count == 10) {
+
+    if (count >= 0) {
+      count = count - 2;
+      if (count <= 8) {
+        
         armsOn = !armsOn;
+        count = 10;
       }
     }
-      
   }
   if (dkey == true) red1x = red1x + 5;
 
@@ -153,14 +160,14 @@ void game() {
     vxblue2 = vxred1 * -1;
     vyblue2 = vyred1 * -1;
   }
-  
+
   if (dist(blue1x, blue1y, blue2x, blue2y) <= playerd) {
     vxblue1 = (blue1x - blue2x)/8;
     vyblue1 = (blue1y - blue2y)/8;
     vxblue2 = vxblue1 * -1;
     vyblue2 = vyblue1 * -1;
   }
-  
+
   if (dist(blue1x, blue1y, red2x, red2y) <= playerd) {
     vxblue1 = (blue1x - red2x)/8;
     vyblue1 = (blue1y - red2y)/8;
@@ -230,7 +237,7 @@ void reset() {
   balld = 40;
   vx = 0;
   vy = 0;
-  
+
   if (leftscore == 5 || rightscore == 5) {
     mode = GAMEOVER;
   }
