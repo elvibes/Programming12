@@ -4,6 +4,7 @@ void game() {
 
   //goal
   stroke(255);
+  strokeWeight(10);
   fill(29, 170, 56);
   rect(25, 300, 100, 200);
 
@@ -46,14 +47,41 @@ void game() {
   noStroke();
 
   //arms
-  if (armsOn == true) {
+  if (redarmsOn == true) {
     rect(red1x - 15, red1y - 30, 30, 15);
     rect(red1x + 15, red1y + 30, 30, 15);
+    
+    rect(red2x - 15, red2y - 30, 30, 15);
+    rect(red2x + 15, red2y + 30, 30, 15);
   } else {
     rect(red1x - 15, red1y + 30, 30, 15);
     rect(red1x + 15, red1y - 30, 30, 15);
+    
+    rect(red2x - 15, red2y + 30, 30, 15);
+    rect(red2x + 15, red2y - 30, 30, 15);
   }
+  
+  if (bluearmsOn == true) {
+    rect(blue1x - 15, blue1y - 30, 30, 15);
+    rect(blue1x + 15, blue1y + 30, 30, 15);
+    
+    rect(blue2x - 15, blue2y - 30, 30, 15);
+    rect(blue2x + 15, blue2y + 30, 30, 15);
+  } else {
+    rect(blue1x - 15, blue1y + 30, 30, 15);
+    rect(blue1x + 15, blue1y - 30, 30, 15);
+    
+    rect(blue2x - 15, blue2y + 30, 30, 15);
+    rect(blue2x + 15, blue2y - 30, 30, 15);
+  }
+  
+  shadow(red1x, red1y);
+  shadow(red2x, red2y);
+  shadow(blue1x, blue1y);
+  shadow(blue2x, blue2y);
   fill(255, 149, 149);
+  stroke(0);
+  strokeWeight(1);
   circle(red1x, red1y, playerd);
   circle(red2x, red2y, playerd);
 
@@ -69,23 +97,17 @@ void game() {
 
 
   //move players
-  int  count = 10;
+  
   if (wkey == true) red1y = red1y - 5;
   if (skey == true) red1y = red1y + 5;
   if (akey == true) {
     red1x = red1x - 5;
-
-    if (count >= 0) {
-      count = count - 2;
-      if (count <= 8) {
-        
-        armsOn = !armsOn;
-        count = 10;
-      }
-    }
+    redarmsOn = !redarmsOn;
   }
-  if (dkey == true) red1x = red1x + 5;
-
+  if (dkey == true) {
+    red1x = red1x + 5;
+    redarmsOn = !redarmsOn;
+  }
   if (wkey == true) red2y = red2y - 5;
   if (skey == true) red2y = red2y + 5;
   if (akey == true) red2x = red2x - 5;
@@ -93,9 +115,14 @@ void game() {
 
   if (upkey == true) blue1y = blue1y - 5;
   if (downkey == true) blue1y = blue1y + 5;
-  if (leftkey == true) blue1x = blue1x - 5;
-  if (rightkey == true) blue1x = blue1x + 5;
-
+  if (leftkey == true) {
+    blue1x = blue1x - 5;
+    bluearmsOn = !bluearmsOn;
+  }
+  if (rightkey == true) {
+    blue1x = blue1x + 5;
+    bluearmsOn = !bluearmsOn;
+  }
   if (upkey == true) blue2y = blue2y - 5;
   if (downkey == true) blue2y = blue2y + 5;
   if (leftkey == true) blue2x = blue2x - 5;
@@ -176,6 +203,9 @@ void game() {
   }
 
   //draw ball
+  noStroke();
+  fill(0, 30);
+  circle(ballx, bally, balld + 15);
   fill(0);
   circle(ballx, bally, balld);
 
@@ -221,6 +251,12 @@ void playerhitball (float x, float y) {
   }
 }
 
+void shadow(float x, float y) {
+  noStroke();
+  fill(0, 30);
+  circle(x, y, playerd + 20);
+}
+
 void reset() {
   red1x = 300;
   red1y = height/2;
@@ -230,7 +266,8 @@ void reset() {
   blue1y = height/2;
   blue2x = 745;
   blue2y = height/2;
-  armsOn = true;
+  redarmsOn = true;
+  bluearmsOn = true;
 
   ballx = width/2;
   bally = height/2;
