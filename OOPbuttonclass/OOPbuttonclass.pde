@@ -3,24 +3,37 @@ color brown = #e29578;
 color pink = #f72585;
 color blue = #4cc9f0;
 
-Button blackButton, blueButton, greenButton, pinkButton;
+boolean mouseReleased;
+boolean wasPressed;
+
+color bkg;
+
+//Button blackButton, blueButton, greenButton, pinkButton;
+Button[] myButtons;
 
 void setup() {
   size(800, 800);
+  bkg = 255;
   rectMode(CENTER);
   textAlign(CENTER, CENTER);
   
-  blackButton = new Button("BLACK", 600, 200, 300, 300, 0, 255);
-  blueButton = new Button("BLUE", 200, 150, 200, 200, blue, pink);
-  greenButton = new Button("GREEN", 200, 400, 200, 200, green, brown);
-  pinkButton = new Button("PINK", 400, 650, 600, 200, pink, blue);
+  myButtons = new Button[4];
+  myButtons[0] = new Button("BLACK", 550, 300, 300, 300, 0, 255);
+  myButtons[1] = new Button("BLUE", 200, 150, 200, 200, blue, pink);
+  myButtons[2] = new Button("GREEN", 200, 400, 200, 200, green, brown);
+  myButtons[3] = new Button("PINK", 400, 650, 600, 200, pink, blue);
   
 }
 
 void draw() {
-  background(255);
-  blackButton.show();
-  blueButton.show();
-  greenButton.show();
-  pinkButton.show();
+  click();
+  background(bkg);
+  int i = 0;
+  while (i < 4) {
+    myButtons[i].show();
+    if (myButtons[i].clicked) {
+      bkg = myButtons[i].normal;
+    }
+    i++;
+  }
 }
