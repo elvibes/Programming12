@@ -17,6 +17,13 @@ class Button {
     normal = norm;
     clicked = false;
   }
+  
+  Button(int picx, int picy, int picw, int pich) {
+    x = picx;
+    y = picy;
+    w = picw;
+    h = pich;
+  }
 
   //Behaviour functions
   void show() {
@@ -42,7 +49,7 @@ class Button {
     } else {
       fill(normal);
     }
-    stroke(0);
+    stroke(255);
     strokeWeight(4);
     rect(x, y, w, h, 30); //rounded corners
   }

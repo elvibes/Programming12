@@ -28,12 +28,10 @@ void setup() {
 void draw() {
   click();
   background(bkg);
-  int i = 0;
-  while (i < 4) {
+  for (int i = 0; i < 4; i++) {
     myButtons[i].show();
     if (myButtons[i].clicked) {
       bkg = myButtons[i].normal;
     }
-    i++;
   }
 }
