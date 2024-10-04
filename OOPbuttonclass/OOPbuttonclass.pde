@@ -8,6 +8,8 @@ boolean wasPressed;
 
 color bkg;
 
+PImage buttonPic;
+
 //Button blackButton, blueButton, greenButton, pinkButton;
 Button[] myButtons;
 
@@ -17,8 +19,10 @@ void setup() {
   rectMode(CENTER);
   textAlign(CENTER, CENTER);
   
+  buttonPic = loadImage("apple.png");
+  
   myButtons = new Button[4];
-  myButtons[0] = new Button("BLACK", 550, 300, 300, 300, 0, 255);
+  myButtons[0] = new Button(buttonPic, 550, 300, 300, 300, 0, 255);
   myButtons[1] = new Button("BLUE", 200, 150, 200, 200, blue, pink);
   myButtons[2] = new Button("GREEN", 200, 400, 200, 200, green, brown);
   myButtons[3] = new Button("PINK", 400, 650, 600, 200, pink, blue);

@@ -5,6 +5,8 @@ class Button {
   boolean clicked;
   color highlight, normal;
   String text;
+  PImage img;
+  
 
   //constructor
   Button(String t, int _x, int _y, int _w, int _h, color norm, color high) {
@@ -18,11 +20,15 @@ class Button {
     clicked = false;
   }
   
-  Button(int picx, int picy, int picw, int pich) {
-    x = picx;
-    y = picy;
-    w = picw;
-    h = pich;
+  Button(PImage pic, int _x, int _y, int _w, int _h, color norm, color high) {
+    x = _x;
+    y = _y;
+    w = _w;
+    h = _h;
+    highlight = high;
+    normal = norm;
+    clicked = false;
+    img = pic;
   }
 
   //Behaviour functions
@@ -49,7 +55,7 @@ class Button {
     } else {
       fill(normal);
     }
-    stroke(255);
+    stroke(0);
     strokeWeight(4);
     rect(x, y, w, h, 30); //rounded corners
   }
@@ -61,7 +67,12 @@ class Button {
     } else {
       fill(highlight);
     }
+    
+    if (img == null) {
     textSize(w/4);
     text(text, x, y);
+    } else {
+      image(img, x - 150, y - 180, w, h);
+    }
   }
 }
