@@ -2,7 +2,7 @@ Mover[] movers;
 int numberOfMovers = 50;
 
 void setup() {
-  size(600, 600);
+  size(800, 800);
   movers = new Mover[numberOfMovers]; //instantiate array
   
   for(int i = 0; i < numberOfMovers; i++) {

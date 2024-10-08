@@ -1,17 +1,15 @@
 class Mover {
   
   //instance variables
-  float x, y;
-  float vx, vy;
+  PVector loc;
+  PVector vel;
   float d;
   
   //constructor
   Mover() {
     d = 100;
-    x = random(0, width);
-    y = random(0, height);
-    vx = random(-1, 1);
-    vy = random(-1, 1);
+    loc = new PVector (random(0, width), random(0, height));
+    vel = new PVector (random(-5, 5), random(-5, 5));
   }
   
   
@@ -21,29 +19,29 @@ class Mover {
   }
   
   void move() {
-    x = x + vx;
-    y = y + vy;
+    loc.add(vel);
+    
   }
   
   void bounceOffEdge() {
-    if (x < 0 || x > width) vx = -vx;
-    if (y < 0 || y > height) vy = -vy;
+    if (loc.x < 0 || loc.x > width) vel.x = -vel.x;
+    if (loc.y < 0 || loc.y > height) vel.y = -vel.y;
   }
   
   void showBody() {
     noStroke();
     fill(255, 50);
-    circle(x, y, d);
+    circle(loc.x, loc.y, d);
   }
   
   void showConnections() {
     for (int i = 0; i < numberOfMovers; i++) {
-      float dist = dist(x, y, movers[i].x, movers[i].y);
+      float dist = dist(loc.x, loc.y, movers[i].loc.x, movers[i].loc.y);
       if (dist <= 200) {
         float a = map(dist, 0, 200, 255, 0);
         stroke(255, a);
         strokeWeight(2);
-        line(x, y, movers[i].x, movers[i].y);
+        line(loc.x, loc.y, movers[i].loc.x, movers[i].loc.y);
       }
     }
   }
