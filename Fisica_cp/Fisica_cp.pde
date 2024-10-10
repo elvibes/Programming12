@@ -7,6 +7,9 @@ color green  = color(74, 163, 57);
 color red    = color(224, 80, 61);
 color yellow = color(242, 215, 16);
 
+//global variables
+float cloudx, cloudy, vx;
+
 //assets
 PImage redBird;
 
@@ -19,6 +22,10 @@ FWorld world;
 void setup() {
   //make window
   fullScreen();
+  
+  cloudx = 50;
+  cloudy = 150;
+  vx = 5;
 
   //load resources
   redBird = loadImage("red-bird.png");
@@ -65,10 +72,14 @@ void makeBottomPlatform() {
   bottomPlatform = new FPoly();
 
   //plot the vertices of this platform
-  bottomPlatform.vertex(width+100, height*0.6);
-  bottomPlatform.vertex(300, height*0.8);
-  bottomPlatform.vertex(300, height*0.8+100);
-  bottomPlatform.vertex(width+100, height*0.6+100);
+  bottomPlatform.vertex(width*0.75, height*0.4+85);
+  bottomPlatform.vertex(width*0.8, height*0.4+100);
+  bottomPlatform.vertex(width*0.8, height*0.4+400);
+  bottomPlatform.vertex(width*0.95, height*0.4+400);
+  bottomPlatform.vertex(width*0.95, height*0.4);
+  bottomPlatform.vertex(width*0.99, height*0.4);
+  bottomPlatform.vertex(width*0.99, height*0.4+450);
+  bottomPlatform.vertex(width*0.75, height*0.4+450);
 
   // define properties
   bottomPlatform.setStatic(true);
@@ -92,8 +103,23 @@ void draw() {
     makeBox();
     makeBird();
   }
+  
+  
   world.step();  //get box2D to calculate all the forces and new positions
+  cloud1();
   world.draw();  //ask box2D to convert this world to processing screen coordinates and draw
+}
+
+void cloud1() {
+  noStroke();
+  fill(255);
+  circle(cloudx, cloudy, 70);
+  circle(cloudx-40, cloudy, 70);
+  circle(cloudx+40, cloudy, 70);
+  circle(cloudx, cloudy-40, 70);
+  cloudx = cloudx + vx;
+  
+  if (cloudx > 1500) cloudx = -100;
 }
 
 
