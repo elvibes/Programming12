@@ -47,21 +47,14 @@ class Button {
       world.setGravity(0, 0);
     }
 
-    //if (newElement == true) {
-    //  if (frameCount % 20 == 0) {  //Every 20 frames ...
-    //    makeCircle();
-    //    makeBlob();
-    //    makeBox();
-    //    makeBird();
-    //  }
-    //} else {
-    //  if (frameCount == 0) {  //doesn't show
-    //    makeCircle();
-    //    makeBlob();
-    //    makeBox();
-    //    makeBird();
-    //  }
-    //}
+    if (newElement == true) {
+      if (frameCount % 20 == 0) {  //Every 20 frames ...
+        makeCircle();
+        makeBlob();
+        makeBox();
+        makeBird();
+      }
+    } 
   }
 
   boolean touchingMouse() {

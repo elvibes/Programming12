@@ -30,21 +30,21 @@ FWorld world;
 void setup() {
   //make window
   fullScreen();
-  
+
   textAlign(CENTER, CENTER);
   rectMode(CENTER);
-  
+
   cloud1x = 50;
   cloud1y = 150;
   vx = 5;
-  
+
   cloud2x = 1500;
   cloud2y = 700;
 
   //load resources
   redBird = loadImage("red-bird.png");
   creeper = loadImage("creeper.png");
-  
+
   //initialize buttons
   myButtons = new Button[2];
   myButtons[0] = new Button(true, 200, 400, 100, 100, 255, 0);
@@ -117,31 +117,22 @@ void draw() {
   println("x: " + mouseX + " y: " + mouseY);
   background(blue);
 
-  if (frameCount % 20 == 0) {  //Every 20 frames ...
-    makeCircle();
-    makeBlob();
-    makeBox();
-    makeBird();
-  }
-  
-  
+
   world.step();  //get box2D to calculate all the forces and new positions
   cloud1();
   world.draw();  //ask box2D to convert this world to processing screen coordinates and draw
   cloud2();
-  
+
   click();
-  for (int i = 0; i < 2; i++) {
-    myButtons[i].show();
-    if (myButtons[0].clicked) {
-      gravity = !gravity;
-      println("yes");
-    } 
-    
-    if (myButtons[1].clicked) {
-      newElement = !newElement;
-      
-    }
+
+  myButtons[0].show();
+  if (myButtons[0].clicked) {
+    gravity = !gravity;
+  }
+
+  myButtons[1].show();
+  if (myButtons[1].clicked) {
+    newElement = !newElement;
   }
 }
 
@@ -153,7 +144,7 @@ void cloud1() {
   circle(cloud1x+40, cloud1y, 70);
   circle(cloud1x, cloud1y-40, 70);
   cloud1x = cloud1x + vx;
-  
+
   if (cloud1x > width + 100) cloud1x = -100;
 }
 
@@ -165,7 +156,7 @@ void cloud2() {
   circle(cloud2x+40, cloud2y, 70);
   circle(cloud2x, cloud2y-40, 70);
   cloud2x = cloud2x - vx;
-  
+
   if (cloud2x < -100) cloud2x = width + 100;
 }
 
