@@ -8,10 +8,18 @@ color red    = color(224, 80, 61);
 color yellow = color(242, 215, 16);
 
 //global variables
-float cloudx, cloudy, vx;
+float cloud1x, cloud1y, cloud2x, cloud2y, vx;
+boolean mouseReleased;
+boolean wasPressed;
+
+boolean gravity, newElement;
+
+Button[] myButtons;
+
 
 //assets
 PImage redBird;
+PImage creeper;
 
 FPoly topPlatform;
 FPoly bottomPlatform;
@@ -23,12 +31,24 @@ void setup() {
   //make window
   fullScreen();
   
-  cloudx = 50;
-  cloudy = 150;
+  textAlign(CENTER, CENTER);
+  rectMode(CENTER);
+  
+  cloud1x = 50;
+  cloud1y = 150;
   vx = 5;
+  
+  cloud2x = 1500;
+  cloud2y = 700;
 
   //load resources
   redBird = loadImage("red-bird.png");
+  creeper = loadImage("creeper.png");
+  
+  //initialize buttons
+  myButtons = new Button[2];
+  myButtons[0] = new Button(true, 200, 400, 100, 100, 255, 0);
+  myButtons[1] = new Button(200, 600, 100, 100, 255, 0, true);
 
   //initialise world
   makeWorld();
@@ -108,18 +128,45 @@ void draw() {
   world.step();  //get box2D to calculate all the forces and new positions
   cloud1();
   world.draw();  //ask box2D to convert this world to processing screen coordinates and draw
+  cloud2();
+  
+  click();
+  for (int i = 0; i < 2; i++) {
+    myButtons[i].show();
+    if (myButtons[0].clicked) {
+      gravity = !gravity;
+      println("yes");
+    } 
+    
+    if (myButtons[1].clicked) {
+      newElement = !newElement;
+      
+    }
+  }
 }
 
 void cloud1() {
   noStroke();
   fill(255);
-  circle(cloudx, cloudy, 70);
-  circle(cloudx-40, cloudy, 70);
-  circle(cloudx+40, cloudy, 70);
-  circle(cloudx, cloudy-40, 70);
-  cloudx = cloudx + vx;
+  circle(cloud1x, cloud1y, 70);
+  circle(cloud1x-40, cloud1y, 70);
+  circle(cloud1x+40, cloud1y, 70);
+  circle(cloud1x, cloud1y-40, 70);
+  cloud1x = cloud1x + vx;
   
-  if (cloudx > 1500) cloudx = -100;
+  if (cloud1x > width + 100) cloud1x = -100;
+}
+
+void cloud2() {
+  noStroke();
+  fill(255);
+  circle(cloud2x, cloud2y, 70);
+  circle(cloud2x-40, cloud2y, 70);
+  circle(cloud2x+40, cloud2y, 70);
+  circle(cloud2x, cloud2y-40, 70);
+  cloud2x = cloud2x - vx;
+  
+  if (cloud2x < -100) cloud2x = width + 100;
 }
 
 
@@ -166,18 +213,17 @@ void makeBlob() {
 //===========================================================================================
 
 void makeBox() {
-  FBox box = new FBox(25, 100);
+  FBox box = new FBox(50, 50);
   box.setPosition(random(width), -5);
 
   //set visuals
-  box.setStroke(0);
-  box.setStrokeWeight(2);
-  box.setFillColor(green);
+  box.attachImage(creeper);
+  creeper.resize(0, 60);
 
   //set physical properties
   box.setDensity(0.2);
   box.setFriction(1);
-  box.setRestitution(0.25);
+  box.setRestitution(1);
   world.add(box);
 }
 
