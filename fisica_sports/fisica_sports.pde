@@ -1,6 +1,15 @@
 import fisica.*;
 
+//mode variables
+int mode;
+final int INTRO = 1;
+final int LEVEL1 = 2;
+final int LEVEL2 = 3;
+final int LEVEL3 = 4;
+final int GAMEOVER = 5;
+
 FWorld world;
+FCircle ball;
 
 //instance variables
 PVector loc, direction, vel;
@@ -11,6 +20,8 @@ boolean wkey, akey, skey, dkey, ekey;
 
 void setup() {
   size(800, 600);
+  
+  mode = LEVEL1;
   
   loc = new PVector(100, 372);
   direction = new PVector(loc.x + 20, loc.y);
@@ -105,13 +116,25 @@ void makeFlag() {
 
 void draw() {
   background(#6AA4FF);
+  
+  if (mode == INTRO) {
+    intro();
+  } else if (mode == LEVEL1) {
+    level1();
+  } else if (mode == LEVEL2) {
+    level2();
+  } else if (mode == LEVEL3) {
+    level3();
+  } else if (mode == GAMEOVER) {
+    gameover();
+  }
   world.step();
   world.draw();
   
   //ball arrow
   stroke(0);
   strokeWeight(1);
-  if(ekey) noStroke();
+  if(abs(ball.getVelocityX()) > 0.1) noStroke();
   line(loc.x, loc.y, direction.x, direction.y);
   //triangle(direction.x - 5, direction.y - 3, direction.x, direction.y, direction.x - 5, direction.y + 3);
   
@@ -119,6 +142,8 @@ void draw() {
   if(dkey) direction.x = direction.x + 3;
   if(wkey) direction.y = direction.y - 3;
   if(skey) direction.y = direction.y + 3;
+  if (ekey == true) ball.setVelocity(direction.x, direction.y);
+  
   
   //ballmovement
   //check if ball is moving
@@ -128,11 +153,9 @@ void draw() {
 }
 
 void makeBall() {
-  FCircle ball = new FCircle(15);
+  ball = new FCircle(15);
   ball.setPosition(loc.x, loc.y);
 
-  //ball.setForce(50, 100);
-  //ball.addForce(50, 100);
 
   //set visuals
   ball.setStroke(0);
