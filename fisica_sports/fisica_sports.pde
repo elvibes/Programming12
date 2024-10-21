@@ -2,12 +2,19 @@ import fisica.*;
 
 FWorld world;
 
-boolean wkey, akey, skey, dkey;
+//instance variables
+PVector loc, direction, vel;
+
+boolean wkey, akey, skey, dkey, ekey;
 
 //-----------------------------------------------------------
 
 void setup() {
   size(800, 600);
+  
+  loc = new PVector(100, 372);
+  direction = new PVector(loc.x + 20, loc.y);
+  vel = new PVector(0, 0);
   
   //initialize world
   createWorld();
@@ -23,7 +30,7 @@ void createWorld() {
   //init world
   Fisica.init(this);
   world = new FWorld();
-  world.setGravity(0, 980);
+  world.setGravity(0, 1000);
   world.setEdges(#6AA4FF);
 }
 
@@ -43,10 +50,10 @@ void makeLand() {
 
 void makeAdditionalLand() {
   FBox Aland = new FBox(850, 300);
-  Aland.setPosition(215, 530);
+  Aland.setPosition(220, 530);
   
   FBox Bland = new FBox(200, 300);
-  Bland.setPosition(780, 530);
+  Bland.setPosition(775, 530);
   
   // define properties
   Aland.setStatic(true);
@@ -101,22 +108,42 @@ void draw() {
   world.step();
   world.draw();
   
+  //ball arrow
+  stroke(0);
+  strokeWeight(1);
+  if(ekey) noStroke();
+  line(loc.x, loc.y, direction.x, direction.y);
+  //triangle(direction.x - 5, direction.y - 3, direction.x, direction.y, direction.x - 5, direction.y + 3);
+  
+  if(akey) direction.x = direction.x - 3;
+  if(dkey) direction.x = direction.x + 3;
+  if(wkey) direction.y = direction.y - 3;
+  if(skey) direction.y = direction.y + 3;
+  
+  //ballmovement
+  //check if ball is moving
+  
+  
+  
 }
 
 void makeBall() {
-  FCircle circle = new FCircle(15);
-  circle.setPosition(100, height/2);
+  FCircle ball = new FCircle(15);
+  ball.setPosition(loc.x, loc.y);
+
+  //ball.setForce(50, 100);
+  //ball.addForce(50, 100);
 
   //set visuals
-  circle.setStroke(0);
-  circle.setStrokeWeight(1);
-  circle.setFillColor(#FFFFFF);
+  ball.setStroke(0);
+  ball.setStrokeWeight(1);
+  ball.setFillColor(#FFFFFF);
 
   //set physical properties
-  circle.setDensity(1);
-  circle.setFriction(2);
-  circle.setRestitution(0.3);
+  ball.setDensity(1);
+  ball.setFriction(2);
+  ball.setRestitution(0.3);
 
   //add to world
-  world.add(circle);
+  world.add(ball);
 }
