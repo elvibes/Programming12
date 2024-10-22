@@ -23,8 +23,8 @@ void setup() {
   
   mode = LEVEL1;
   
-  loc = new PVector(100, 372);
-  direction = new PVector(loc.x + 20, loc.y);
+  //loc = new PVector(ball.getX(), ball.getY());
+  direction = new PVector(100, 372);
   vel = new PVector(0, 0);
   
   //initialize world
@@ -134,8 +134,8 @@ void draw() {
   //ball arrow
   stroke(0);
   strokeWeight(1);
-  if(abs(ball.getVelocityX()) > 0.1) noStroke();
-  line(loc.x, loc.y, direction.x, direction.y);
+  if(abs(ball.getVelocityX()) > 0.5) noStroke();
+  line(ball.getX(), ball.getY(), direction.x, direction.y);
   //triangle(direction.x - 5, direction.y - 3, direction.x, direction.y, direction.x - 5, direction.y + 3);
   
   if(akey) direction.x = direction.x - 3;
@@ -146,7 +146,7 @@ void draw() {
   
   
   //ballmovement
-  //check if ball is moving
+  
   
   
   
@@ -154,7 +154,7 @@ void draw() {
 
 void makeBall() {
   ball = new FCircle(15);
-  ball.setPosition(loc.x, loc.y);
+  ball.setPosition(100, 372);
 
 
   //set visuals
