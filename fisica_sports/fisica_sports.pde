@@ -142,7 +142,7 @@ void draw() {
   if(dkey) direction.x = direction.x + 3;
   if(wkey) direction.y = direction.y - 3;
   if(skey) direction.y = direction.y + 3;
-  if (ekey == true) ball.setVelocity(direction.x, direction.y);
+  if (ekey == true) ball.setVelocity(direction.x- ball.getX(), direction.y - ball.getY()*3);
   
   
   //ballmovement
