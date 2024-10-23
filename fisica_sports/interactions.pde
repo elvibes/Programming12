@@ -13,3 +13,18 @@ void keyReleased() {
   if (key == 'd' || key == 'D') dkey = false;
   if (key == ENTER) ekey = false;
 }
+
+void mouseReleased() {
+  if (mode == INTRO) {
+    introClicks();
+    level1setup();
+  } else if (mode == LEVEL1) {
+    level1Clicks();
+  } else if (mode == LEVEL2) {
+    level2Clicks();
+  } else if (mode == LEVEL3) {
+    level3Clicks();
+  } else if (mode == GAMEOVER) {
+    gameoverClicks();
+  }
+}

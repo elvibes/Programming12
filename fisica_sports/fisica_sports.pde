@@ -21,7 +21,7 @@ boolean wkey, akey, skey, dkey, ekey;
 void setup() {
   size(800, 600);
   
-  mode = LEVEL1;
+  mode = INTRO;
   
   //loc = new PVector(ball.getX(), ball.getY());
   direction = new PVector(100, 372);
@@ -31,10 +31,10 @@ void setup() {
   createWorld();
   
   //add land
-  makeLand();
-  makeAdditionalLand();
-  makeFlag();
-  makeBall();
+  //makeLand();
+  //makeAdditionalLand();
+  //makeFlag();
+  //makeBall();
 }
 
 void createWorld() {
@@ -131,25 +131,11 @@ void draw() {
   world.step();
   world.draw();
   
-  //ball arrow
-  stroke(0);
-  strokeWeight(1);
-  if(abs(ball.getVelocityX()) > 0.5) noStroke();
-  line(ball.getX(), ball.getY(), direction.x, direction.y);
-  //triangle(direction.x - 5, direction.y - 3, direction.x, direction.y, direction.x - 5, direction.y + 3);
-  
   if(akey) direction.x = direction.x - 3;
   if(dkey) direction.x = direction.x + 3;
   if(wkey) direction.y = direction.y - 3;
   if(skey) direction.y = direction.y + 3;
-  if (ekey == true) ball.setVelocity(direction.x- ball.getX(), direction.y - ball.getY()*3);
-  
-  
-  //ballmovement
-  
-  
-  
-  
+  if(ekey == true) ball.setVelocity(direction.x - ball.getX(), direction.y - ball.getY()*2);
 }
 
 void makeBall() {
@@ -169,4 +155,11 @@ void makeBall() {
 
   //add to world
   world.add(ball);
+}
+
+void makeLine(){
+  stroke(0);
+  strokeWeight(1);
+  if(abs(ball.getVelocityX()) > 0.5) noStroke();
+  line(ball.getX(), ball.getY(), direction.x, direction.y);
 }
