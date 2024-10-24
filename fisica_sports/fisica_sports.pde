@@ -10,6 +10,9 @@ final int GAMEOVER = 5;
 
 FWorld world;
 FCircle ball;
+FBox pole;
+FPoly flag;
+FBox Aland, Bland;
 
 //instance variables
 PVector loc, direction, vel;
@@ -20,21 +23,15 @@ boolean wkey, akey, skey, dkey, ekey;
 
 void setup() {
   size(800, 600);
-  
+
   mode = INTRO;
-  
+
   //loc = new PVector(ball.getX(), ball.getY());
   direction = new PVector(100, 372);
   vel = new PVector(0, 0);
-  
+
   //initialize world
   createWorld();
-  
-  //add land
-  //makeLand();
-  //makeAdditionalLand();
-  //makeFlag();
-  //makeBall();
 }
 
 void createWorld() {
@@ -48,7 +45,7 @@ void createWorld() {
 void makeLand() {
   FBox land = new FBox(width, height/2);
   land.setPosition(width/2, 600);
-  
+
   // define properties
   land.setStatic(true);
   land.setFillColor(#3BFF49);
@@ -59,56 +56,56 @@ void makeLand() {
   world.add(land);
 }
 
-void makeAdditionalLand() {
-  FBox Aland = new FBox(850, 300);
+void make1Land() {
+  Aland = new FBox(850, 300);
   Aland.setPosition(220, 530);
-  
-  FBox Bland = new FBox(200, 300);
+
+  Bland = new FBox(200, 300);
   Bland.setPosition(775, 530);
-  
+
   // define properties
   Aland.setStatic(true);
   Aland.setFillColor(#3BFF49);
   Aland.setStrokeWeight(0);
   Aland.setFriction(0.1);
-  
+
   Bland.setStatic(true);
   Bland.setFillColor(#3BFF49);
   Bland.setStrokeWeight(0);
   Bland.setFriction(0.1);
-  
+
   //put it in the world
   world.add(Aland);
   world.add(Bland);
 }
 
 void makeFlag() {
-  FBox box = new FBox(3, 180);
-  box.setPosition(660, height/2 + 60);
-  
-  FPoly flag = new FPoly();
-  
+  pole = new FBox(3, 180);
+  pole.setPosition(660, height/2 + 60);
+
+  flag = new FPoly();
+
   flag.vertex(658, height/2 - 30);
   flag.vertex(690, height/2 - 15);
   flag.vertex(658, height/2);
 
   //set visuals
-  box.setStroke(255);
-  box.setStrokeWeight(2);
-  box.setFillColor(#FFFFFF);
+  pole.setStroke(255);
+  pole.setStrokeWeight(2);
+  pole.setFillColor(#FFFFFF);
 
   flag.setStroke(255, 0, 4);
   flag.setFillColor(#FF0004);
 
   //set physical properties
-  box.setStatic(true);
-  box.setFriction(0.1);
-  box.setSensor(true);
-  
+  pole.setStatic(true);
+  pole.setFriction(0.1);
+  pole.setSensor(true);
+
   flag.setStatic(true);
   flag.setSensor(true);
- 
-  world.add(box);
+
+  world.add(pole);
   world.add(flag);
 }
 
@@ -116,7 +113,7 @@ void makeFlag() {
 
 void draw() {
   background(#6AA4FF);
-  
+
   if (mode == INTRO) {
     intro();
   } else if (mode == LEVEL1) {
@@ -130,12 +127,12 @@ void draw() {
   }
   world.step();
   world.draw();
-  
-  if(akey) direction.x = direction.x - 3;
-  if(dkey) direction.x = direction.x + 3;
-  if(wkey) direction.y = direction.y - 3;
-  if(skey) direction.y = direction.y + 3;
-  if(ekey == true) ball.setVelocity(direction.x - ball.getX(), direction.y - ball.getY()*2);
+
+  if (akey) direction.x = direction.x - 3;
+  if (dkey) direction.x = direction.x + 3;
+  if (wkey) direction.y = direction.y - 3;
+  if (skey) direction.y = direction.y + 3;
+  if (ekey == true) ball.setVelocity(direction.x - ball.getX(), direction.y - ball.getY()*2);
 }
 
 void makeBall() {
@@ -157,9 +154,9 @@ void makeBall() {
   world.add(ball);
 }
 
-void makeLine(){
+void makeLine() {
   stroke(0);
   strokeWeight(1);
-  if(abs(ball.getVelocityX()) > 0.5) noStroke();
+  if (abs(ball.getVelocityX()) > 1) noStroke();
   line(ball.getX(), ball.getY(), direction.x, direction.y);
 }

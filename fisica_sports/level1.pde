@@ -1,17 +1,20 @@
 void level1() {
   makeLine();
   
-  if (ball.getVelocityX() > 0.5) ekey = false;
-  if (ball.getVelocityY() > 0.5) ekey = false;
+  if (ball.getY() < 372) ekey = false;
 }
 
 void level1Clicks() {
   mode = LEVEL2;
+  Aland.removeFromWorld();
+  Bland.removeFromWorld();
+  Aland.setDrawable(false);
+  Bland.setDrawable(false);
 }
 
 void level1setup() {
   makeLand();
-  makeAdditionalLand();
+  make1Land();
   makeFlag();
   makeBall();
 }

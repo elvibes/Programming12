@@ -20,8 +20,10 @@ void mouseReleased() {
     level1setup();
   } else if (mode == LEVEL1) {
     level1Clicks();
+    level2setup();
   } else if (mode == LEVEL2) {
     level2Clicks();
+    level3setup();
   } else if (mode == LEVEL3) {
     level3Clicks();
   } else if (mode == GAMEOVER) {
