@@ -17,4 +17,10 @@ void level1setup() {
   make1Land();
   makeFlag();
   makeBall();
+  direction.x = ball.getX();
+  direction.y = ball.getY();
+  makeHole();
+  hole.setPosition(660, height/2 + 150);
+  Aland.setPosition(220, 530);
+  Bland.setPosition(775, 530);
 }

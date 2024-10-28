@@ -32,12 +32,11 @@ void level2Clicks() {
 }
 
 void level2setup() {
-  makeLand();
   make2Land();
-  makeFlag();
   ball.setPosition(100, 340);
   direction.x = ball.getX();
   direction.y = ball.getY();
+  hole.setPosition(660, height/2 + 45);
 }
 
 void make2Land() {
@@ -52,7 +51,7 @@ void make2Land() {
   Blob2.setAsCircle(360, 320, 150);
   Blob3.setAsCircle(470, 320, 100);
   Blob4.setAsCircle(570, 320, 158);
-  Blob5.setAsCircle(655, 320, 120);
+  Blob5.setAsCircle(655, 350, 120);
   Blob6.setAsCircle(755, 320, 100);
 
   platform.setPosition(100, 400);

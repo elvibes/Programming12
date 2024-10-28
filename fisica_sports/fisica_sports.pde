@@ -13,6 +13,7 @@ FCircle ball;
 FBox pole;
 FPoly flag;
 FBox Aland, Bland;
+FBox hole;
 
 //instance variables
 PVector loc, direction, vel;
@@ -38,7 +39,7 @@ void createWorld() {
   //init world
   Fisica.init(this);
   world = new FWorld();
-  world.setGravity(0, 1000);
+  world.setGravity(0, 900);
   world.setEdges(#6AA4FF);
 }
 
@@ -103,7 +104,7 @@ void makeFlag() {
   pole.setSensor(true);
 
   flag.setStatic(true);
-  flag.setSensor(true);
+  flag.setSensor(false);
 
   world.add(pole);
   world.add(flag);
@@ -132,7 +133,7 @@ void draw() {
   if (dkey) direction.x = direction.x + 3;
   if (wkey) direction.y = direction.y - 3;
   if (skey) direction.y = direction.y + 3;
-  if (ekey == true) ball.setVelocity(direction.x - ball.getX(), direction.y - ball.getY()*2);
+  if (ekey == true) ball.setVelocity(direction.x - ball.getX(), direction.y - ball.getY()*1.2);
 }
 
 void makeBall() {
@@ -159,4 +160,19 @@ void makeLine() {
   strokeWeight(1);
   if (abs(ball.getVelocityX()) > 1) noStroke();
   line(ball.getX(), ball.getY(), direction.x, direction.y);
+}
+
+void makeHole() {
+  hole = new FBox(30, 35);
+  hole.setPosition(660, height/2 + 150);
+  
+  hole.setStroke(#000000);
+  hole.setStrokeWeight(0);
+  hole.setFillColor(#000000);
+  
+  hole.setStatic(true);
+  hole.setFriction(0.1);
+  hole.setSensor(true);
+  
+  world.add(hole);
 }
