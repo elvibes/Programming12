@@ -12,7 +12,7 @@ FWorld world;
 FCircle ball;
 FBox pole;
 FPoly flag;
-FBox Aland, Bland;
+FBox Aland, Bland, land;
 FBox hole;
 
 //instance variables
@@ -24,6 +24,7 @@ boolean wkey, akey, skey, dkey, ekey;
 
 void setup() {
   size(800, 600);
+  textAlign(CENTER);
 
   mode = INTRO;
 
@@ -44,7 +45,7 @@ void createWorld() {
 }
 
 void makeLand() {
-  FBox land = new FBox(width, height/2);
+  land = new FBox(width, height/2);
   land.setPosition(width/2, 600);
 
   // define properties
@@ -128,6 +129,7 @@ void draw() {
   }
   world.step();
   world.draw();
+ 
 
   if (akey) direction.x = direction.x - 3;
   if (dkey) direction.x = direction.x + 3;
@@ -175,4 +177,14 @@ void makeHole() {
   hole.setSensor(true);
   
   world.add(hole);
+}
+
+boolean hitHole(FCircle ball) {
+  ArrayList<FContact> contactList = ball.getContacts();
+  for(int i = 0; i < contactList.size(); i++) {
+    FContact myContact = contactList.get(i);
+    if (myContact.contains(hole)) return true;
+  }
+  return false;
+  
 }

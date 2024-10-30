@@ -15,6 +15,15 @@ void level3Clicks() {
   p3.setDrawable(false);
   Aland.removeFromWorld();
   Bland.removeFromWorld();
+  Aland.setDrawable(false);
+  Bland.setDrawable(false);
+  ball.removeFromWorld();
+  ball.setDrawable(false);
+  hole.removeFromWorld();
+  hole.setDrawable(false);
+  land.setDrawable(false);
+  flag.setDrawable(false);
+  pole.setDrawable(false);
 }
 
 void level3setup() {

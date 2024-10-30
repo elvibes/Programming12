@@ -2,6 +2,11 @@ void level1() {
   makeLine();
   
   if (ball.getY() < 372) ekey = false;
+  
+  if (hitHole(ball)) {
+    println("!!");
+    mode = LEVEL2;
+  }
 }
 
 void level1Clicks() {
