@@ -16,9 +16,11 @@ FBox Aland, Bland, land;
 FBox hole;
 
 //instance variables
-PVector loc, direction, vel;
+PVector direction, vel;
 
 boolean wkey, akey, skey, dkey, ekey;
+
+int score;
 
 //-----------------------------------------------------------
 
@@ -27,8 +29,8 @@ void setup() {
   textAlign(CENTER);
 
   mode = INTRO;
-
-  //loc = new PVector(ball.getX(), ball.getY());
+  score = 0;
+  
   direction = new PVector(100, 372);
   vel = new PVector(0, 0);
 
@@ -135,7 +137,13 @@ void draw() {
   if (dkey) direction.x = direction.x + 3;
   if (wkey) direction.y = direction.y - 3;
   if (skey) direction.y = direction.y + 3;
-  if (ekey == true) ball.setVelocity(direction.x - ball.getX(), direction.y - ball.getY()*1.2);
+  if (ekey == true) {
+    ball.setVelocity(direction.x - ball.getX(), direction.y - ball.getY()*1.2);
+  }
+  
+  fill(0);
+  textSize(30);
+  text(score, 100, 500);
 }
 
 void makeBall() {
@@ -160,7 +168,7 @@ void makeBall() {
 void makeLine() {
   stroke(0);
   strokeWeight(1);
-  if (abs(ball.getVelocityX()) > 1) noStroke();
+  if (abs(ball.getVelocityX()) > 1 || hitHole(ball)) noStroke();
   line(ball.getX(), ball.getY(), direction.x, direction.y);
 }
 

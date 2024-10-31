@@ -1,20 +1,20 @@
 void level1() {
   makeLine();
   
-  if (ball.getY() < 372) ekey = false;
-  
-  if (hitHole(ball)) {
-    println("!!");
-    mode = LEVEL2;
+  if (ekey && ball.getVelocityX() < 0.2 && ball.getVelocityX() > -0.2) {
+    score = score + 1;
   }
-}
 
-void level1Clicks() {
-  mode = LEVEL2;
-  Aland.removeFromWorld();
-  Bland.removeFromWorld();
-  Aland.setDrawable(false);
-  Bland.setDrawable(false);
+  if (ball.getY() < 372) ekey = false;
+
+  if (hitHole(ball) && frameCount % 300 == 0) {
+    mode = LEVEL2;
+    Aland.removeFromWorld();
+    Bland.removeFromWorld();
+    Aland.setDrawable(false);
+    Bland.setDrawable(false);
+    level2setup();
+  }
 }
 
 void level1setup() {

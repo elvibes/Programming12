@@ -8,27 +8,31 @@ FBox platform;
 
 void level2() {
   makeLine();
+  
+  if (ekey && ball.getVelocityX() < 0.2 && ball.getVelocityX() > -0.2) {
+    score = score + 1;
+  }
 
   if (ball.getY() < 290) ekey = false;
-}
 
-void level2Clicks() {
-  mode = LEVEL3;
-
-  myBlob.removeFromWorld();
-  Blob2.removeFromWorld();
-  Blob3.removeFromWorld();
-  Blob4.removeFromWorld();
-  Blob5.removeFromWorld();
-  Blob6.removeFromWorld();
-  platform.removeFromWorld();
-  myBlob.setDrawable(false);
-  Blob2.setDrawable(false);
-  Blob3.setDrawable(false);
-  Blob4.setDrawable(false);
-  Blob5.setDrawable(false);
-  Blob6.setDrawable(false);
-  platform.setDrawable(false);
+  if (hitHole(ball) && frameCount % 300 == 0) {
+    mode = LEVEL3;
+    myBlob.removeFromWorld();
+    Blob2.removeFromWorld();
+    Blob3.removeFromWorld();
+    Blob4.removeFromWorld();
+    Blob5.removeFromWorld();
+    Blob6.removeFromWorld();
+    platform.removeFromWorld();
+    myBlob.setDrawable(false);
+    Blob2.setDrawable(false);
+    Blob3.setDrawable(false);
+    Blob4.setDrawable(false);
+    Blob5.setDrawable(false);
+    Blob6.setDrawable(false);
+    platform.setDrawable(false);
+    level3setup();
+  }
 }
 
 void level2setup() {
