@@ -1,7 +1,7 @@
 void level1() {
   makeLine();
   
-  if (ekey && ball.getVelocityX() < 0.2 && ball.getVelocityX() > -0.2) {
+  if (ekey && ball.getVelocityX() < 0.4 && ball.getVelocityX() > -0.4) {
     score = score + 1;
   }
 

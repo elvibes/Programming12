@@ -15,7 +15,7 @@ void level2() {
 
   if (ball.getY() < 290) ekey = false;
 
-  if (hitHole(ball) && frameCount % 300 == 0) {
+  if (hitHole(ball) && frameCount % 100 == 0) {
     mode = LEVEL3;
     myBlob.removeFromWorld();
     Blob2.removeFromWorld();
