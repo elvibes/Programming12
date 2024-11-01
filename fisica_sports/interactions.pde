@@ -11,14 +11,25 @@ void keyReleased() {
   if (key == 'a' || key == 'A') akey = false;
   if (key == 's' || key == 'S') skey = false;
   if (key == 'd' || key == 'D') dkey = false;
-  if (key == ENTER) ekey = false;
+  if (key == ENTER) {
+    score = score + 1;
+    ekey = false;
+  }
 }
 
 void mouseReleased() {
   if (mode == INTRO) {
-    introClicks();
-    level1setup();
+    //level1setup();
   } else if (mode == GAMEOVER) {
-    gameoverClicks();
+    //gameoverClicks();
+  }
+}
+
+void click() {
+  mouseReleased = false;
+  if (mousePressed) wasPressed = true;
+  if (wasPressed && mousePressed == false) {
+    mouseReleased = true;
+    wasPressed = false;
   }
 }

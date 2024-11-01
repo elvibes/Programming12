@@ -9,11 +9,9 @@ FBox platform;
 void level2() {
   makeLine();
   
-  if (ekey && ball.getVelocityX() < 0.2 && ball.getVelocityX() > -0.2) {
-    score = score + 1;
+  if (ball.getVelocityX() > 0.5 || ball.getVelocityY() > 0.5) {
+    ekey = false;
   }
-
-  if (ball.getY() < 290) ekey = false;
 
   if (hitHole(ball) && frameCount % 100 == 0) {
     mode = LEVEL3;
@@ -33,6 +31,10 @@ void level2() {
     platform.setDrawable(false);
     level3setup();
   }
+  
+  fill(0);
+  textSize(30);
+  text(score, 750, 50);
 }
 
 void level2setup() {

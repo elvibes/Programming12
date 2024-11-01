@@ -15,6 +15,13 @@ FPoly flag;
 FBox Aland, Bland, land;
 FBox hole;
 
+boolean mouseReleased;
+boolean wasPressed;
+
+color bkg;
+
+Button[] myButtons;
+
 //instance variables
 PVector direction, vel;
 
@@ -26,7 +33,12 @@ int score;
 
 void setup() {
   size(800, 600);
-  textAlign(CENTER);
+  textAlign(CENTER, CENTER);
+  rectMode(CENTER);
+  
+  myButtons = new Button[2];
+  myButtons[0] = new Button("START", width/2, 400, 100, 50, 0, 255);
+  myButtons[1] = new Button("PLAY AGAIN", width/2, 400, 300, 50, 0, 255);
 
   mode = INTRO;
   score = 0;
@@ -117,6 +129,8 @@ void makeFlag() {
 
 void draw() {
   background(#6AA4FF);
+  
+  click();
 
   if (mode == INTRO) {
     intro();
@@ -140,10 +154,6 @@ void draw() {
   if (ekey == true) {
     ball.setVelocity(direction.x - ball.getX(), direction.y - ball.getY()*1.2);
   }
-  
-  fill(0);
-  textSize(30);
-  text(score, 100, 500);
 }
 
 void makeBall() {

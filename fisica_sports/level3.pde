@@ -3,8 +3,8 @@ FPoly p1, p2, p3;
 void level3() {
   makeLine();
   
-  if (ekey && ball.getVelocityX() < 0.2 && ball.getVelocityX() > -0.2) {
-    score = score + 1;
+  if (ball.getVelocityX() > 0.5 || ball.getVelocityY() > 0.5) {
+    ekey = false;
   }
 
   if (hitHole(ball) && frameCount % 300 == 0) {
@@ -27,6 +27,10 @@ void level3() {
     flag.setDrawable(false);
     pole.setDrawable(false);
   }
+  
+  fill(0);
+  textSize(30);
+  text(score, 750, 50);
 }
 
 void level3setup() {
