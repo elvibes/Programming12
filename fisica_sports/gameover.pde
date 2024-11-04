@@ -2,7 +2,7 @@ void gameover() {
   textSize(100);
   fill(0);
   if (score <= 5) {
-    text("You won!", width/2, height/2);
+    text("You won!", width/2, height/2-50);
   }
 
   if (score > 5) {

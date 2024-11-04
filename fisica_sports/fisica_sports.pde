@@ -22,6 +22,8 @@ color bkg;
 
 Button[] myButtons;
 
+Gif golf;
+
 //instance variables
 PVector direction, vel;
 
@@ -36,9 +38,11 @@ void setup() {
   textAlign(CENTER, CENTER);
   rectMode(CENTER);
   
+  golf = new Gif("golf/frame_", "_delay-0.1s.gif", 23, 3, 0, 0, width, height);
+ 
   myButtons = new Button[2];
-  myButtons[0] = new Button("START", width/2, 400, 100, 50, 0, 255);
-  myButtons[1] = new Button("PLAY AGAIN", width/2, 400, 300, 50, 0, 255);
+  myButtons[0] = new Button("START", width/2, 450, 100, 50, 0, 255);
+  myButtons[1] = new Button("PLAY AGAIN", width/2, 400, 150, 50, 0, 255);
 
   mode = INTRO;
   score = 0;

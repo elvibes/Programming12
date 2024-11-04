@@ -69,7 +69,7 @@ class Button {
     }
     
     if (img == null) {
-    textSize(w/4);
+    textSize(20);
     text(text, x, y);
     } else {
       image(img, x - 150, y - 180, w, h);
