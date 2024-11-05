@@ -69,6 +69,7 @@ void makeLand() {
   // define properties
   land.setStatic(true);
   land.setFillColor(#3BFF49);
+  land.setStrokeColor(#3BFF49);
   land.setStrokeWeight(0);
   land.setFriction(0.1);
 
@@ -86,11 +87,13 @@ void make1Land() {
   // define properties
   Aland.setStatic(true);
   Aland.setFillColor(#3BFF49);
+  Aland.setStrokeColor(#3BFF49);
   Aland.setStrokeWeight(0);
   Aland.setFriction(0.1);
 
   Bland.setStatic(true);
   Bland.setFillColor(#3BFF49);
+  Bland.setStrokeColor(#3BFF49);
   Bland.setStrokeWeight(0);
   Bland.setFriction(0.1);
 

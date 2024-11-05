@@ -9,6 +9,10 @@ FBox platform;
 void level2() {
   makeLine();
   
+  fill(#3BFF49);
+  stroke(#3BFF49);
+  rect(600, 460, width, 100);
+  
   if (ball.getVelocityX() > 0.5 || ball.getVelocityY() > 0.5) {
     ekey = false;
   }
@@ -63,14 +67,21 @@ void make2Land() {
   platform.setPosition(100, 400);
 
   myBlob.setFillColor(#3BFF49);
+  myBlob.setStrokeColor(#3BFF49);
   Blob2.setFillColor(#3BFF49);
+  Blob2.setStrokeColor(#3BFF49);
   Blob3.setFillColor(#3BFF49);
+  Blob3.setStrokeColor(#3BFF49);
   Blob4.setFillColor(#3BFF49);
+  Blob4.setStrokeColor(#3BFF49);
   Blob5.setFillColor(#3BFF49);
+  Blob5.setStrokeColor(#3BFF49);
   Blob6.setFillColor(#3BFF49);
+  Blob6.setStrokeColor(#3BFF49);
 
   platform.setStatic(true);
   platform.setFillColor(#3BFF49);
+  platform.setStrokeColor(#3BFF49);
   platform.setStrokeWeight(0);
   platform.setFriction(0.1);
 

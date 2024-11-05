@@ -1,6 +1,6 @@
 void level1() {
   makeLine();
-  
+
   if (ball.getVelocityX() > 0.5 || ball.getVelocityY() > 0.5) {
     ekey = false;
   }
@@ -13,7 +13,7 @@ void level1() {
     Bland.setDrawable(false);
     level2setup();
   }
-  
+
   fill(0);
   textSize(30);
   text(score, 750, 50);
