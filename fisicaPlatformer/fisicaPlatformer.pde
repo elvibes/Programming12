@@ -3,12 +3,15 @@ FWorld world;
 
 color white = #FFFFFF;
 color black = #000000;
+color red = #FF0000;
 
 PImage map;
 int gridSize = 32;
 
 //keyboard variables
 boolean wkey, skey, akey, dkey, qkey, ekey, spacekey, upkey, downkey, leftkey, rightkey;
+
+FPlayer player;
 
 void setup() {
   size(600, 600);
@@ -18,6 +21,7 @@ void setup() {
 
   map = loadImage("map.png");
   loadWorld(map);
+  loadPlayer();
 }
 
 void loadWorld(PImage img) {
@@ -28,13 +32,22 @@ void loadWorld(PImage img) {
         FBox b = new FBox(gridSize, gridSize);
         b.setPosition(x * gridSize, y * gridSize);
         b.setStatic(true);
+        b.setFill(black);
+        b.setGrabbable(false);
         world.add(b);
       }
     }
   }
 }
+
+void loadPlayer() {
+  player = new FPlayer();
+  world.add(player);
+  
+}
 void draw() {
   background(white);
   world.step();
   world.draw();
+  player.act();
 }
