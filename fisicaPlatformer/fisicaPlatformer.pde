@@ -7,7 +7,7 @@ color red = #FF0000;
 
 PImage map;
 int gridSize = 32;
-
+float zoom = 1.5;
 //keyboard variables
 boolean wkey, skey, akey, dkey, qkey, ekey, spacekey, upkey, downkey, leftkey, rightkey;
 
@@ -47,7 +47,15 @@ void loadPlayer() {
 }
 void draw() {
   background(white);
+  drawWorld();
+  player.act();
+}
+
+void drawWorld() {
+  pushMatrix();
+  translate(-player.getX()*zoom+width/2, -player.getY()*zoom+height/2);
+  scale(zoom);
   world.step();
   world.draw();
-  player.act();
+  popMatrix();
 }

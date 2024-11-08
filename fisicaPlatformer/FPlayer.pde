@@ -1,10 +1,11 @@
-class FPlayer extends FBox{
+class FPlayer extends FBox {
   FPlayer() {
     super(gridSize, gridSize);
     setPosition(150, 50);
     setFillColor(red);
+    setRotatable(false);
   }
-  
+
   void act() {
     float vy = getVelocityY();
     float vx = getVelocityX();
@@ -13,5 +14,4 @@ class FPlayer extends FBox{
     if (wkey) setVelocity(vx, -200);
     if (skey) setVelocity(vx, 200);
   }
-  
 }
