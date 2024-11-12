@@ -6,12 +6,10 @@ color black = #000000;
 color red = #FF0000;
 color lightblue = #54ccff;
 color brown = #d68b00;
-color green1 = #00992b;
-color middlegreen = #05e83a;
-color green3 = #002e0b;
-color green5 = #004d14;
+color green = #05e83a;
 
-PImage map, ice, stone, treeTrunk;
+
+PImage map, ice, stone, treeTrunk, treeIntersect, treeMiddle, treeEndWest, treeEndEast;
 int gridSize = 32;
 float zoom = 2;
 //keyboard variables
@@ -26,10 +24,14 @@ void setup() {
   world.setGravity(0, 900);
 
   map = loadImage("map.png");
-  stone = loadImage("stone.png");
-  ice = loadImage("ice.png");
+  stone = loadImage("images/stone.png");
+  ice = loadImage("images/ice.png");
   ice.resize(32, 32);
-  treeTrunk =loadImage("tree_trunk.png");
+  treeTrunk = loadImage("images/tree_trunk.png");
+  treeIntersect = loadImage("images/tree_intersect.png");
+  treeMiddle = loadImage("images/treetop_center.png");
+  treeEndWest = loadImage("images/treetop_w.png");
+  treeEndEast = loadImage("images/treetop_e.png");
   loadWorld(map);
   loadPlayer();
 }
@@ -37,7 +39,10 @@ void setup() {
 void loadWorld(PImage img) {
   for (int y = 0; y < img.height; y++) {
     for (int x = 0; x < img.width; x++) {
-      color c = img.get(x, y);
+      color c = img.get(x, y); //color of pixel
+      color s = img.get(x, y+1); //color below pixel
+      color w = img.get(x-1, y); //color west of pixel
+      color e = img.get(x+1, y); //color east of pixel
       FBox b = new FBox(gridSize, gridSize);
       b.setPosition(x * gridSize, y * gridSize);
       b.setStatic(true);
@@ -61,6 +66,30 @@ void loadWorld(PImage img) {
         b.attachImage(treeTrunk);
         b.setSensor(true);
         b.setName("tree trunk");
+        world.add(b);
+      }
+      //intersection
+      if (c == green && s == brown) {
+        b.attachImage(treeIntersect);
+        b.setName("treetop");
+        world.add(b);
+      }
+      //mid piece
+      if (c == green && w == green && e == green) {
+        b.attachImage(treeMiddle);
+        b.setName("treetop");
+        world.add(b);
+      }
+      //west endcap
+      if (c == green && w == white) {
+        b.attachImage(treeEndWest);
+        b.setName("treetop");
+        world.add(b);
+      }
+      //east endcap
+      if (c == green && e == white) {
+        b.attachImage(treeEndEast);
+        b.setName("treetop");
         world.add(b);
       }
     }
