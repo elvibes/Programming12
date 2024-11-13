@@ -7,9 +7,10 @@ color red = #FF0000;
 color lightblue = #54ccff;
 color brown = #d68b00;
 color green = #05e83a;
+color purple = #6f3198;
 
 
-PImage map, ice, stone, treeTrunk, treeIntersect, treeMiddle, treeEndWest, treeEndEast;
+PImage map, ice, stone, treeTrunk, treeIntersect, treeMiddle, treeEndWest, treeEndEast, spike, bridge;
 int gridSize = 32;
 float zoom = 2;
 //keyboard variables
@@ -32,6 +33,7 @@ void setup() {
   treeMiddle = loadImage("images/treetop_center.png");
   treeEndWest = loadImage("images/treetop_w.png");
   treeEndEast = loadImage("images/treetop_e.png");
+  spike = loadImage("images/spike.png");
   loadWorld(map);
   loadPlayer();
 }
@@ -47,49 +49,55 @@ void loadWorld(PImage img) {
       b.setPosition(x * gridSize, y * gridSize);
       b.setStatic(true);
       b.setGrabbable(false);
+      b.setFriction(4);
       //stone
       if (c == black) {
         b.attachImage(stone);
-        b.setFriction(4);
         b.setName("stone");
         world.add(b);
       }
       //ice
-      if (c == lightblue) {
+      else if (c == lightblue) {
         b.attachImage(ice);
         b.setFriction(0);
         b.setName("ice");
         world.add(b);
       }
       //tree
-      if (c == brown) {
+      else if (c == brown) {
         b.attachImage(treeTrunk);
         b.setSensor(true);
         b.setName("tree trunk");
         world.add(b);
       }
       //intersection
-      if (c == green && s == brown) {
+      else if (c == green && s == brown) {
         b.attachImage(treeIntersect);
         b.setName("treetop");
         world.add(b);
       }
       //mid piece
-      if (c == green && w == green && e == green) {
+      else if (c == green && w == green && e == green) {
         b.attachImage(treeMiddle);
         b.setName("treetop");
         world.add(b);
       }
       //west endcap
-      if (c == green && w == white) {
+      else if (c == green && w != green) {
         b.attachImage(treeEndWest);
         b.setName("treetop");
         world.add(b);
       }
       //east endcap
-      if (c == green && e == white) {
+      else if (c == green && e != green) {
         b.attachImage(treeEndEast);
         b.setName("treetop");
+        world.add(b);
+      }
+      //spikes
+      else if (c == purple) {
+        b.attachImage(spike);
+        b.setName("spike");
         world.add(b);
       }
     }
@@ -104,6 +112,14 @@ void draw() {
   background(white);
   drawWorld();
   player.act();
+}
+
+void actWorld() {
+  player.act();
+  for (int i = 0; i < terrain.size(); i++) {
+    FBox b = terrain.get(i);
+    if (b instanceof FBridge) ((FBridge) b).act();
+  }
 }
 
 void drawWorld() {
