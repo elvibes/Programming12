@@ -8,6 +8,7 @@ color lightblue = #54ccff;
 color brown = #d68b00;
 color green = #05e83a;
 color purple = #6f3198;
+color pink = #ffa3b1;
 
 
 PImage map, ice, stone, treeTrunk, treeIntersect, treeMiddle, treeEndWest, treeEndEast, spike, bridge;
@@ -17,10 +18,12 @@ float zoom = 2;
 boolean wkey, skey, akey, dkey, qkey, ekey, spacekey, upkey, downkey, leftkey, rightkey;
 
 FPlayer player;
+ArrayList<FGameObject> terrain;
 
 void setup() {
   size(600, 600);
   Fisica.init(this);
+  terrain = new ArrayList<FGameObject>();
   world = new FWorld(-2000, -2000, 2000, 2000);
   world.setGravity(0, 900);
 
@@ -34,6 +37,7 @@ void setup() {
   treeEndWest = loadImage("images/treetop_w.png");
   treeEndEast = loadImage("images/treetop_e.png");
   spike = loadImage("images/spike.png");
+  bridge = loadImage("images/bridge_center.png");
   loadWorld(map);
   loadPlayer();
 }
@@ -100,6 +104,12 @@ void loadWorld(PImage img) {
         b.setName("spike");
         world.add(b);
       }
+      //bridge
+      else if (c == pink) {
+        FBridge br = new FBridge(x * gridSize, y * gridSize);
+        terrain.add(br);
+        world.add(br);
+      }
     }
   }
 }
@@ -111,14 +121,14 @@ void loadPlayer() {
 void draw() {
   background(white);
   drawWorld();
-  player.act();
+  actWorld();
 }
 
 void actWorld() {
   player.act();
   for (int i = 0; i < terrain.size(); i++) {
-    FBox b = terrain.get(i);
-    if (b instanceof FBridge) ((FBridge) b).act();
+    FGameObject t = terrain.get(i);
+    t.act();
   }
 }
 

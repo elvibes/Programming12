@@ -1,6 +1,6 @@
-class FPlayer extends FBox {
+class FPlayer extends FGameObject {
   FPlayer() {
-    super(gridSize, gridSize);
+    super();
     setPosition(0, 0);
     setName("player");
     setFillColor(red);
@@ -9,7 +9,9 @@ class FPlayer extends FBox {
 
   void act() {
     handleInput();
-    checkForCollisions();
+    if (isTouching("spike")) {
+      setPosition(0, 0);
+    }
   }
   
   void handleInput() {
@@ -19,15 +21,5 @@ class FPlayer extends FBox {
     if (dkey) setVelocity(200, vy);
     if (wkey) setVelocity(vx, -200);
     if (skey) setVelocity(vx, 200);
-  }
-  
-  void checkForCollisions() {
-    ArrayList<FContact> contacts = getContacts();
-    for (int i = 0; i < contacts.size(); i++) {
-      FContact fc = contacts.get(i);
-      if (fc.contains("spike")) {
-        setPosition(0, 0);
-      }
-    }
   }
 }
