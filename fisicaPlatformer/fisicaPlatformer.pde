@@ -12,6 +12,9 @@ color pink = #ffa3b1;
 
 
 PImage map, ice, stone, treeTrunk, treeIntersect, treeMiddle, treeEndWest, treeEndEast, spike, bridge;
+PImage[] idle, jump, run, action;
+
+
 int gridSize = 32;
 float zoom = 2;
 //keyboard variables
@@ -40,6 +43,21 @@ void setup() {
   bridge = loadImage("images/bridge_center.png");
   loadWorld(map);
   loadPlayer();
+  
+  //load actions
+  idle = new PImage[2];
+  idle[0] = loadImage("imageReverser/idle0.png");
+  idle[1] = loadImage("imageReverser/idle1.png");
+  
+  jump = new PImage[1];
+  jump[0] = loadImage("imageReverser/jump0.png");
+  
+  run = new PImage[3];
+  run[0] = loadImage("imageReverser/runright0.png");
+  run[1] = loadImage("imageReverser/runright1.png");
+  run[2] = loadImage("imageReverser/runright2.png");
+  
+  action = idle;
 }
 
 void loadWorld(PImage img) {
