@@ -9,10 +9,13 @@ color brown = #d68b00;
 color green = #05e83a;
 color purple = #6f3198;
 color pink = #ffa3b1;
+color grey = #464646;
+color yellow = #fff200;
 
 
 PImage map, ice, stone, treeTrunk, treeIntersect, treeMiddle, treeEndWest, treeEndEast, spike, bridge;
 PImage[] idle, jump, run, action;
+PImage[] goomba;
 
 
 int gridSize = 32;
@@ -22,11 +25,13 @@ boolean wkey, skey, akey, dkey, qkey, ekey, spacekey, upkey, downkey, leftkey, r
 
 FPlayer player;
 ArrayList<FGameObject> terrain;
+ArrayList<FGameObject> enemies;
 
 void setup() {
   size(600, 600);
   Fisica.init(this);
   terrain = new ArrayList<FGameObject>();
+  enemies = new ArrayList<FGameObject>();
   world = new FWorld(-2000, -2000, 2000, 2000);
   world.setGravity(0, 900);
 
@@ -44,7 +49,8 @@ void setup() {
   loadWorld(map);
   loadPlayer();
   
-  //load actions
+  //load actions 
+  //mario
   idle = new PImage[2];
   idle[0] = loadImage("imageReverser/idle0.png");
   idle[1] = loadImage("imageReverser/idle1.png");
@@ -58,6 +64,13 @@ void setup() {
   run[2] = loadImage("imageReverser/runright2.png");
   
   action = idle;
+  
+  //enemies
+  goomba = new PImage[2];
+  goomba[0] = loadImage("enemies/goomba0.png");
+  goomba[0].resize(gridSize, gridSize);
+  goomba[1] = loadImage("enemies/goomba1.png");
+  goomba[1].resize(gridSize, gridSize);
 }
 
 void loadWorld(PImage img) {
@@ -76,6 +89,12 @@ void loadWorld(PImage img) {
       if (c == black) {
         b.attachImage(stone);
         b.setName("stone");
+        world.add(b);
+      }
+      //wall
+      if (c == grey) {
+        b.attachImage(stone);
+        b.setName("wall");
         world.add(b);
       }
       //ice
@@ -128,6 +147,12 @@ void loadWorld(PImage img) {
         terrain.add(br);
         world.add(br);
       }
+      //goomba
+      else if (c == yellow) {
+        FGoomba gmb = new FGoomba(x * gridSize, y * gridSize);
+        enemies.add(gmb);
+        world.add(gmb);
+      }
     }
   }
 }
@@ -147,6 +172,10 @@ void actWorld() {
   for (int i = 0; i < terrain.size(); i++) {
     FGameObject t = terrain.get(i);
     t.act();
+  }
+  for (int i = 0; i < enemies.size(); i++) {
+    FGameObject e = enemies.get(i);
+    e.act();
   }
 }
 

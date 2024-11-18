@@ -1,13 +1,12 @@
 class FPlayer extends FGameObject {
+
+  int frame, direction, lives;
   
-  int frame, direction;
-  final int L = -1;
-  final int R = 1;
-  
+
   FPlayer() {
     super();
     frame = 0;
-    direction = 1;
+    direction = R;
     setPosition(0, 0);
     setName("player");
     setFillColor(red);
@@ -21,15 +20,16 @@ class FPlayer extends FGameObject {
     }
     animate();
   }
-  
+
   void animate() {
     if (frame >= action.length) frame = 0;
     if (frameCount % 5 == 0) {
-      attachImage(action[frame]);
+      if (direction == R) attachImage(action[frame]);
+      if (direction == L) attachImage(reverseImage(action[frame]));
       frame++;
     }
   }
-  
+
   void input() {
     float vy = getVelocityY();
     float vx = getVelocityX();
@@ -39,10 +39,12 @@ class FPlayer extends FGameObject {
     if (akey) {
       setVelocity(-200, vy);
       action = run;
+      direction = L;
     }
     if (dkey) {
       setVelocity(200, vy);
       action = run;
+      direction = R;
     }
     if (wkey) {
       setVelocity(vx, -200);
