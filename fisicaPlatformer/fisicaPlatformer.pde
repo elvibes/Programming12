@@ -3,7 +3,7 @@ FWorld world;
 
 color white = #FFFFFF;
 color black = #000000;
-color red = #FF0000;
+color red = #ed1c24;
 color lightblue = #54ccff;
 color brown = #d68b00;
 color green = #05e83a;
@@ -11,11 +11,14 @@ color purple = #6f3198;
 color pink = #ffa3b1;
 color grey = #464646;
 color yellow = #fff200;
+color orange = #ff7e00;
 
 
 PImage map, ice, stone, treeTrunk, treeIntersect, treeMiddle, treeEndWest, treeEndEast, spike, bridge;
+PImage trampoline;
 PImage[] idle, jump, run, action;
 PImage[] goomba;
+PImage[] lava;
 
 
 int gridSize = 32;
@@ -46,31 +49,41 @@ void setup() {
   treeEndEast = loadImage("images/treetop_e.png");
   spike = loadImage("images/spike.png");
   bridge = loadImage("images/bridge_center.png");
+  trampoline = loadImage("enemiesImages/trampoline.png");
   loadWorld(map);
   loadPlayer();
-  
-  //load actions 
+
+  //load actions
   //mario
   idle = new PImage[2];
   idle[0] = loadImage("imageReverser/idle0.png");
   idle[1] = loadImage("imageReverser/idle1.png");
-  
+
   jump = new PImage[1];
   jump[0] = loadImage("imageReverser/jump0.png");
-  
+
   run = new PImage[3];
   run[0] = loadImage("imageReverser/runright0.png");
   run[1] = loadImage("imageReverser/runright1.png");
   run[2] = loadImage("imageReverser/runright2.png");
-  
+
   action = idle;
-  
+
   //enemies
   goomba = new PImage[2];
-  goomba[0] = loadImage("enemies/goomba0.png");
+  goomba[0] = loadImage("enemiesImages/goomba0.png");
   goomba[0].resize(gridSize, gridSize);
-  goomba[1] = loadImage("enemies/goomba1.png");
+  goomba[1] = loadImage("enemiesImages/goomba1.png");
   goomba[1].resize(gridSize, gridSize);
+
+  //lava
+  lava = new PImage[6];
+  lava[0] = loadImage("images/lava0.png");
+  lava[1] = loadImage("images/lava1.png");
+  lava[2] = loadImage("images/lava2.png");
+  lava[3] = loadImage("images/lava3.png");
+  lava[4] = loadImage("images/lava4.png");
+  lava[5] = loadImage("images/lava5.png");
 }
 
 void loadWorld(PImage img) {
@@ -152,6 +165,19 @@ void loadWorld(PImage img) {
         FGoomba gmb = new FGoomba(x * gridSize, y * gridSize);
         enemies.add(gmb);
         world.add(gmb);
+      }
+      //trampoline
+      else if (c == red) {
+        b.attachImage(trampoline);
+        b.setName("trampoline");
+        b.setRestitution(1.5);
+        world.add(b);
+      }
+      //lava
+      else if (c == orange) {
+        FLava lava = new FLava(x * gridSize, y * gridSize);
+        enemies.add(lava);
+        world.add(lava);
       }
     }
   }
