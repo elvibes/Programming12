@@ -7,7 +7,7 @@ class FPlayer extends FGameObject {
     super();
     frame = 0;
     direction = R;
-    setPosition(0, 0);
+    setPosition(0, 200);
     setName("player");
     setFillColor(red);
     setRotatable(false);
@@ -16,7 +16,7 @@ class FPlayer extends FGameObject {
   void act() {
     input();
     if (isTouching("spike")) {
-      setPosition(0, 0);
+      setPosition(0, 200);
     }
     animate();
   }

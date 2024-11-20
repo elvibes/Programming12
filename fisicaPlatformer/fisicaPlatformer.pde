@@ -12,17 +12,20 @@ color pink = #ffa3b1;
 color grey = #464646;
 color yellow = #fff200;
 color orange = #ff7e00;
+color lightpurple = #b5a5d5;
+color blue = #4d6df3;
 
 
 PImage map, ice, stone, treeTrunk, treeIntersect, treeMiddle, treeEndWest, treeEndEast, spike, bridge;
-PImage trampoline;
+PImage trampoline, hammer;
 PImage[] idle, jump, run, action;
 PImage[] goomba;
 PImage[] lava;
+PImage[] hammerbro;
 
 
 int gridSize = 32;
-float zoom = 2;
+float zoom = 1.5;
 //keyboard variables
 boolean wkey, skey, akey, dkey, qkey, ekey, spacekey, upkey, downkey, leftkey, rightkey;
 
@@ -50,6 +53,7 @@ void setup() {
   spike = loadImage("images/spike.png");
   bridge = loadImage("images/bridge_center.png");
   trampoline = loadImage("enemiesImages/trampoline.png");
+  hammer = loadImage("enemiesImages/hammer.png");
   loadWorld(map);
   loadPlayer();
 
@@ -84,6 +88,12 @@ void setup() {
   lava[3] = loadImage("images/lava3.png");
   lava[4] = loadImage("images/lava4.png");
   lava[5] = loadImage("images/lava5.png");
+  lava[5].resize(32, 32);
+  
+  //hammerbro
+  hammerbro = new PImage[2];
+  hammerbro[0] = loadImage("enemiesImages/hammerbro0.png");
+  hammerbro[1] = loadImage("enemiesImages/hammerbro1.png");
 }
 
 void loadWorld(PImage img) {
@@ -178,6 +188,19 @@ void loadWorld(PImage img) {
         FLava lava = new FLava(x * gridSize, y * gridSize);
         enemies.add(lava);
         world.add(lava);
+      }
+      //hammer bro
+      else if (c == lightpurple) {
+        FHammerBro hammerbro = new FHammerBro(x * gridSize, y * gridSize);
+        enemies.add(hammerbro);
+        world.add(hammerbro);
+      }
+      //hammerbro wall
+      else if (c == blue) {
+        b.setName("hwall");
+        b.setSensor(true);
+        b.setDrawable(false);
+        world.add(b);
       }
     }
   }
