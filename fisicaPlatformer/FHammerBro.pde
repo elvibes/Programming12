@@ -1,6 +1,6 @@
 class FHammerBro extends FGameObject {
 
-  int direction = L;
+  
   int speed = 50;
   int frame = 0;
 
@@ -20,8 +20,12 @@ class FHammerBro extends FGameObject {
   void animate() {
     if (frame >= hammerbro.length) frame = 0;
     if (frameCount % 10 == 0) {
-      if (direction == R) attachImage(hammerbro[frame]);
-      if (direction == L) attachImage(reverseImage(hammerbro[frame]));
+      if (direction == R) {
+        attachImage(hammerbro[frame]);
+      }
+      if (direction == L) {
+        attachImage(reverseImage(hammerbro[frame]));
+      }
       frame++;
     }
   }
@@ -30,6 +34,7 @@ class FHammerBro extends FGameObject {
     if (isTouching("hwall")) {
       direction *= -1;
       setPosition(getX() + direction*1.5, getY());
+      makeHammer();
     }
     //if (isTouching("player")) {
     //  if (player.getY() < getY() - gridSize/2) {

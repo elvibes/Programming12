@@ -17,11 +17,20 @@ color blue = #4d6df3;
 
 
 PImage map, ice, stone, treeTrunk, treeIntersect, treeMiddle, treeEndWest, treeEndEast, spike, bridge;
-PImage trampoline, hammer;
+PImage trampoline, hammerimg;
 PImage[] idle, jump, run, action;
 PImage[] goomba;
 PImage[] lava;
 PImage[] hammerbro;
+
+final int L = -1;
+final int R = 1;
+
+int direction = L;
+
+FHammerBro hb;
+FBox hammer;
+
 
 
 int gridSize = 32;
@@ -53,7 +62,7 @@ void setup() {
   spike = loadImage("images/spike.png");
   bridge = loadImage("images/bridge_center.png");
   trampoline = loadImage("enemiesImages/trampoline.png");
-  hammer = loadImage("enemiesImages/hammer.png");
+  hammerimg = loadImage("enemiesImages/hammer.png");
   loadWorld(map);
   loadPlayer();
 
@@ -191,9 +200,9 @@ void loadWorld(PImage img) {
       }
       //hammer bro
       else if (c == lightpurple) {
-        FHammerBro hammerbro = new FHammerBro(x * gridSize, y * gridSize);
-        enemies.add(hammerbro);
-        world.add(hammerbro);
+        hb = new FHammerBro(x * gridSize, y * gridSize);
+        enemies.add(hb);
+        world.add(hb);
       }
       //hammerbro wall
       else if (c == blue) {
@@ -210,10 +219,24 @@ void loadPlayer() {
   player = new FPlayer();
   world.add(player);
 }
+
 void draw() {
   background(white);
   drawWorld();
   actWorld();
+}
+
+void makeHammer() {
+  hammer = new FBox(gridSize, gridSize);
+  hammer.attachImage(hammerimg);
+  hammer.setPosition(hb.getX(), hb.getY());
+  
+  hammer.setAngularVelocity(10);
+  if (direction == R) hammer.setVelocity(-100, -500);
+  if (direction == L) hammer.setVelocity(100, -500);
+  hammer.setSensor(true);
+  
+  world.add(hammer);
 }
 
 void actWorld() {
