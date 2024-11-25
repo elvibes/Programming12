@@ -18,6 +18,9 @@ class FPlayer extends FGameObject {
     if (isTouching("spike")) {
       setPosition(0, 200);
     }
+    if (isTouching("hammer")) {
+      setPosition(0, 200);
+    }
     animate();
   }
 

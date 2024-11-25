@@ -36,15 +36,6 @@ class FHammerBro extends FGameObject {
       setPosition(getX() + direction*1.5, getY());
       makeHammer();
     }
-    //if (isTouching("player")) {
-    //  if (player.getY() < getY() - gridSize/2) {
-    //    world.remove(this);
-    //    enemies.remove(this);
-    //    player.setVelocity(player.getVelocityX(), -300);
-    //  } else {
-    //    player.setPosition(0, 200);
-    //  }
-    //}
   }
 
   void move() {

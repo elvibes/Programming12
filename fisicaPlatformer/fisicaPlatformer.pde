@@ -14,10 +14,12 @@ color yellow = #fff200;
 color orange = #ff7e00;
 color lightpurple = #b5a5d5;
 color blue = #4d6df3;
+color dgreen = #002e0b;
+color lgrey = #b4b4b4;
 
 
 PImage map, ice, stone, treeTrunk, treeIntersect, treeMiddle, treeEndWest, treeEndEast, spike, bridge;
-PImage trampoline, hammerimg;
+PImage trampoline, hammerimg, thwomp0, thwomp1;
 PImage[] idle, jump, run, action;
 PImage[] goomba;
 PImage[] lava;
@@ -30,7 +32,8 @@ int direction = L;
 
 FHammerBro hb;
 FBox hammer;
-
+FThwomp th;
+FBox thSensor;
 
 
 int gridSize = 32;
@@ -63,6 +66,8 @@ void setup() {
   bridge = loadImage("images/bridge_center.png");
   trampoline = loadImage("enemiesImages/trampoline.png");
   hammerimg = loadImage("enemiesImages/hammer.png");
+  thwomp0 = loadImage("enemiesImages/thwomp0.png");
+  thwomp1 = loadImage("enemiesImages/thwomp1.png");
   loadWorld(map);
   loadPlayer();
 
@@ -211,6 +216,18 @@ void loadWorld(PImage img) {
         b.setDrawable(false);
         world.add(b);
       }
+      //thwomp
+      else if (c == dgreen) {
+        th = new FThwomp(x * gridSize, y * gridSize);
+        enemies.add(th);
+        world.add(th);
+      }
+      ////thwomp sensor
+      //else if (c == lgrey) {
+      //  FThwompSensor ths = new FThwompSensor(x * gridSize, y * gridSize);
+      //  enemies.add(ths);
+      //  world.add(ths);
+      //}
     }
   }
 }
@@ -230,13 +247,23 @@ void makeHammer() {
   hammer = new FBox(gridSize, gridSize);
   hammer.attachImage(hammerimg);
   hammer.setPosition(hb.getX(), hb.getY());
+  hammer.setName("hammer");
   
   hammer.setAngularVelocity(10);
-  if (direction == R) hammer.setVelocity(-100, -500);
-  if (direction == L) hammer.setVelocity(100, -500);
+  if (direction == R) hammer.setVelocity(-150, -400);
+  if (direction == L) hammer.setVelocity(150, -400);
   hammer.setSensor(true);
   
   world.add(hammer);
+}
+
+void makeSensor() {
+  thSensor = new FBox(gridSize * 1.5, gridSize * 2);
+  thSensor.setPosition(th.getX(), th.getY());
+  thSensor.setSensor(true);
+  
+  thSensor.setStatic(true);
+  world.add(thSensor);
 }
 
 void actWorld() {
