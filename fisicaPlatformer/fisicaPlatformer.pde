@@ -257,14 +257,14 @@ void makeHammer() {
   world.add(hammer);
 }
 
-void makeSensor() {
-  thSensor = new FBox(gridSize * 1.5, gridSize * 2);
-  thSensor.setPosition(th.getX(), th.getY());
-  thSensor.setSensor(true);
+//void makeSensor() {
+//  thSensor = new FBox(gridSize * 1.5, gridSize * 2);
+//  thSensor.setPosition(th.getX(), th.getY());
+//  thSensor.setSensor(true);
   
-  thSensor.setStatic(true);
-  world.add(thSensor);
-}
+//  thSensor.setStatic(true);
+//  world.add(thSensor);
+//}
 
 void actWorld() {
   player.act();
