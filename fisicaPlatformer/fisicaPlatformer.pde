@@ -67,7 +67,9 @@ void setup() {
   trampoline = loadImage("enemiesImages/trampoline.png");
   hammerimg = loadImage("enemiesImages/hammer.png");
   thwomp0 = loadImage("enemiesImages/thwomp0.png");
+  //thwomp0.resize(gridSize, gridSize);
   thwomp1 = loadImage("enemiesImages/thwomp1.png");
+  //thwomp1.resize(gridSize*2, gridSize*2);
   loadWorld(map);
   loadPlayer();
 
