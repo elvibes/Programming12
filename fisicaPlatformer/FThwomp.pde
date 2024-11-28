@@ -6,6 +6,7 @@ final int rising = 3;
 class FThwomp extends FGameObject {
   
   int state;
+  float ogx, ogy;
 
   FThwomp(float x, float y) {
     super();
@@ -16,6 +17,9 @@ class FThwomp extends FGameObject {
     setRotatable(false);
     mode = waiting;
     state = waiting;
+    ogx = x + gridSize/2;
+    ogy = y + gridSize/2;
+    setDensity(100);
   }
 
   void act() {
@@ -31,16 +35,16 @@ class FThwomp extends FGameObject {
       setStatic(false);
       attachImage(thwomp1);
     }
-    if (getY() >= 400) {
+    if (getY() >= ogy + 160) {
       attachImage(thwomp0);
       mode = rising;
     }
 
-    if (mode == rising && getY() <= 450) {
+    if (mode == rising && getY() <= ogy + 210) {
       setVelocity(0, -100);
     }
     
-    if (getY() >= 0 && getY() <= 15) {
+    if (abs(ogy - getY()) < 1) {
       mode = waiting;
     }
 
