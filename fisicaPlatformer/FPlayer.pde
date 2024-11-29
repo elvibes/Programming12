@@ -7,7 +7,7 @@ class FPlayer extends FGameObject {
     super();
     frame = 0;
     direction = R;
-    setPosition(1000, 200);
+    setPosition(0, 200);
     setName("player");
     setFillColor(red);
     setRotatable(false);
@@ -19,6 +19,9 @@ class FPlayer extends FGameObject {
       setPosition(0, 200);
     }
     if (isTouching("hammer")) {
+      setPosition(0, 200);
+    }
+    if (isTouching("th")) {
       setPosition(0, 200);
     }
     animate();

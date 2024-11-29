@@ -196,7 +196,7 @@ void loadWorld(PImage img) {
       else if (c == red) {
         b.attachImage(trampoline);
         b.setName("trampoline");
-        b.setRestitution(1.5);
+        b.setRestitution(2.5);
         world.add(b);
       }
       //lava
