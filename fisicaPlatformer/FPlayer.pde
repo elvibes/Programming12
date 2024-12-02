@@ -1,7 +1,6 @@
 class FPlayer extends FGameObject {
 
   int frame, direction, lives;
-  
 
   FPlayer() {
     super();
@@ -16,14 +15,18 @@ class FPlayer extends FGameObject {
   void act() {
     input();
     if (isTouching("spike")) {
-      setPosition(0, 200);
+      reset();
     }
     if (isTouching("hammer")) {
-      setPosition(0, 200);
+      reset();
     }
     if (isTouching("th")) {
-      setPosition(0, 200);
+      reset();
     }
+    if (getY() > 800) {
+      reset();
+    }
+
     animate();
   }
 
@@ -34,6 +37,13 @@ class FPlayer extends FGameObject {
       if (direction == L) attachImage(reverseImage(action[frame]));
       frame++;
     }
+  }
+
+  void reset() {
+    setPosition(0, 200);
+    setVelocity(0, 0);
+    direction = R;
+    gamereset();
   }
 
   void input() {
@@ -52,11 +62,11 @@ class FPlayer extends FGameObject {
       action = run;
       direction = R;
     }
-    if (wkey) {
-      setVelocity(vx, -200);
+    if (wkey && getVelocityY() == 0) {
+      setVelocity(vx, -400);
     }
     if (skey) {
-      setVelocity(vx, 200);
+      setVelocity(vx, 400);
     }
     if (abs(vy) > 0.1) {
       action = jump;

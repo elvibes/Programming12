@@ -28,7 +28,7 @@ PImage[] hammerbro;
 final int L = -1;
 final int R = 1;
 
-int direction = L;
+int direction = R;
 
 FHammerBro hb;
 FBox hammer;
@@ -37,7 +37,7 @@ FBox thSensor;
 
 
 int gridSize = 32;
-float zoom = 1.5;
+float zoom = 1;
 //keyboard variables
 boolean wkey, skey, akey, dkey, qkey, ekey, spacekey, upkey, downkey, leftkey, rightkey;
 
@@ -48,10 +48,7 @@ ArrayList<FGameObject> enemies;
 void setup() {
   size(600, 600);
   Fisica.init(this);
-  terrain = new ArrayList<FGameObject>();
-  enemies = new ArrayList<FGameObject>();
-  world = new FWorld(-2000, -2000, 2000, 2000);
-  world.setGravity(0, 900);
+
 
   map = loadImage("map.png");
   stone = loadImage("images/stone.png");
@@ -70,8 +67,7 @@ void setup() {
   //thwomp0.resize(gridSize, gridSize);
   thwomp1 = loadImage("enemiesImages/thwomp1.png");
   //thwomp1.resize(gridSize*2, gridSize*2);
-  loadWorld(map);
-  loadPlayer();
+
 
   //load actions
   //mario
@@ -105,11 +101,13 @@ void setup() {
   lava[4] = loadImage("images/lava4.png");
   lava[5] = loadImage("images/lava5.png");
   lava[5].resize(32, 32);
-  
+
   //hammerbro
   hammerbro = new PImage[2];
   hammerbro[0] = loadImage("enemiesImages/hammerbro0.png");
   hammerbro[1] = loadImage("enemiesImages/hammerbro1.png");
+
+  gamereset();
 }
 
 void loadWorld(PImage img) {
@@ -224,12 +222,6 @@ void loadWorld(PImage img) {
         enemies.add(th);
         world.add(th);
       }
-      ////thwomp sensor
-      //else if (c == lgrey) {
-      //  FThwompSensor ths = new FThwompSensor(x * gridSize, y * gridSize);
-      //  enemies.add(ths);
-      //  world.add(ths);
-      //}
     }
   }
 }
@@ -250,23 +242,14 @@ void makeHammer() {
   hammer.attachImage(hammerimg);
   hammer.setPosition(hb.getX(), hb.getY());
   hammer.setName("hammer");
-  
+
   hammer.setAngularVelocity(10);
   if (direction == R) hammer.setVelocity(-150, -400);
   if (direction == L) hammer.setVelocity(150, -400);
   hammer.setSensor(true);
-  
+
   world.add(hammer);
 }
-
-//void makeSensor() {
-//  thSensor = new FBox(gridSize * 1.5, gridSize * 2);
-//  thSensor.setPosition(th.getX(), th.getY());
-//  thSensor.setSensor(true);
-  
-//  thSensor.setStatic(true);
-//  world.add(thSensor);
-//}
 
 void actWorld() {
   player.act();
@@ -287,4 +270,13 @@ void drawWorld() {
   world.step();
   world.draw();
   popMatrix();
+}
+
+void gamereset() {
+  terrain = new ArrayList<FGameObject>();
+  enemies = new ArrayList<FGameObject>();
+  world = new FWorld(-2000, -2000, 2000, 2000);
+  world.setGravity(0, 900);
+  loadWorld(map);
+  loadPlayer();
 }

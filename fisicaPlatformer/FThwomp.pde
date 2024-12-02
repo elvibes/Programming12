@@ -45,9 +45,6 @@ class FThwomp extends FGameObject {
     if (abs(ogy - getY()) < 1) {
       state = waiting;
     }
-
-
-    //makeSensor();
   }
 
   boolean touchingPlayer() {
