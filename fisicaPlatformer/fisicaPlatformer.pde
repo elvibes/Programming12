@@ -16,6 +16,7 @@ color lightpurple = #b5a5d5;
 color blue = #4d6df3;
 color dgreen = #002e0b;
 color lgrey = #b4b4b4;
+color yorange = #ffc342;
 
 
 PImage map, ice, stone, treeTrunk, treeIntersect, treeMiddle, treeEndWest, treeEndEast, spike, bridge;
@@ -24,6 +25,7 @@ PImage[] idle, jump, run, action;
 PImage[] goomba;
 PImage[] lava;
 PImage[] hammerbro;
+PImage[] coin;
 
 final int L = -1;
 final int R = 1;
@@ -91,6 +93,12 @@ void setup() {
   goomba[0].resize(gridSize, gridSize);
   goomba[1] = loadImage("enemiesImages/goomba1.png");
   goomba[1].resize(gridSize, gridSize);
+  
+  coin = new PImage[4];
+  coin[0] = loadImage("images/coin0.png");
+  coin[1] = loadImage("images/coin1.png");
+  coin[2] = loadImage("images/coin2.png");
+  coin[3] = loadImage("images/coin3.png");
 
   //lava
   lava = new PImage[6];
@@ -221,6 +229,12 @@ void loadWorld(PImage img) {
         th = new FThwomp(x * gridSize, y * gridSize);
         enemies.add(th);
         world.add(th);
+      }
+      //coin
+      else if (c == yorange) {
+        FCoin cn = new FCoin(x * gridSize, y * gridSize);
+        enemies.add(cn);
+        world.add(cn);
       }
     }
   }
