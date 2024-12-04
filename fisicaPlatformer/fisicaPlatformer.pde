@@ -47,9 +47,13 @@ FPlayer player;
 ArrayList<FGameObject> terrain;
 ArrayList<FGameObject> enemies;
 
+int coini;
+
 void setup() {
   size(600, 600);
   Fisica.init(this);
+
+  coini = 0;
 
 
   map = loadImage("map.png");
@@ -66,9 +70,7 @@ void setup() {
   trampoline = loadImage("enemiesImages/trampoline.png");
   hammerimg = loadImage("enemiesImages/hammer.png");
   thwomp0 = loadImage("enemiesImages/thwomp0.png");
-  //thwomp0.resize(gridSize, gridSize);
   thwomp1 = loadImage("enemiesImages/thwomp1.png");
-  //thwomp1.resize(gridSize*2, gridSize*2);
 
 
   //load actions
@@ -93,7 +95,7 @@ void setup() {
   goomba[0].resize(gridSize, gridSize);
   goomba[1] = loadImage("enemiesImages/goomba1.png");
   goomba[1].resize(gridSize, gridSize);
-  
+
   coin = new PImage[4];
   coin[0] = loadImage("images/coin0.png");
   coin[1] = loadImage("images/coin1.png");
@@ -249,6 +251,10 @@ void draw() {
   background(white);
   drawWorld();
   actWorld();
+
+  fill(0);
+  textSize(30);
+  text(coini, 50, 50);
 }
 
 void makeHammer() {

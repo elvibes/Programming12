@@ -26,6 +26,7 @@ class FCoin extends FGameObject {
 
   void collide() {
     if (isTouching("player")) {
+      coini = coini + 1;
       world.remove(this);
       enemies.remove(this);
     }

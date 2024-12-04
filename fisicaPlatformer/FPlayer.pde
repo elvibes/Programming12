@@ -63,10 +63,10 @@ class FPlayer extends FGameObject {
       direction = R;
     }
     if (wkey && getVelocityY() == 0) {
-      setVelocity(vx, -400);
+      setVelocity(vx, -370);
     }
     if (skey) {
-      setVelocity(vx, 400);
+      setVelocity(vx, 370);
     }
     if (abs(vy) > 0.1) {
       action = jump;
