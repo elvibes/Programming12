@@ -14,17 +14,21 @@ class FPlayer extends FGameObject {
 
   void act() {
     input();
-    if (isTouching("spike")) {
+    if (isTouching("spike")) { 
       reset();
+      lives = lives - 1;
     }
     if (isTouching("hammer")) {
       reset();
+      lives = lives - 1;
     }
     if (isTouching("th")) {
       reset();
+      lives = lives - 1;
     }
     if (getY() > 800) {
       reset();
+      lives = lives - 1;
     }
 
     animate();
@@ -37,13 +41,6 @@ class FPlayer extends FGameObject {
       if (direction == L) attachImage(reverseImage(action[frame]));
       frame++;
     }
-  }
-
-  void reset() {
-    setPosition(0, 200);
-    setVelocity(0, 0);
-    direction = R;
-    gamereset();
   }
 
   void input() {

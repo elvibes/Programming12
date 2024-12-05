@@ -17,10 +17,11 @@ color blue = #4d6df3;
 color dgreen = #002e0b;
 color lgrey = #b4b4b4;
 color yorange = #ffc342;
+color mgreen = #00992b;
 
 
 PImage map, ice, stone, treeTrunk, treeIntersect, treeMiddle, treeEndWest, treeEndEast, spike, bridge;
-PImage trampoline, hammerimg, thwomp0, thwomp1;
+PImage trampoline, hammerimg, thwomp0, thwomp1, cpStart, cpPressed;
 PImage[] idle, jump, run, action;
 PImage[] goomba;
 PImage[] lava;
@@ -47,13 +48,17 @@ FPlayer player;
 ArrayList<FGameObject> terrain;
 ArrayList<FGameObject> enemies;
 
-int coini;
+int coini, lives;
+float cpogx, cpogy;
+boolean cpTouched;
 
 void setup() {
   size(600, 600);
   Fisica.init(this);
 
   coini = 0;
+  lives = 3;
+  cpTouched = false;
 
 
   map = loadImage("map.png");
@@ -71,6 +76,8 @@ void setup() {
   hammerimg = loadImage("enemiesImages/hammer.png");
   thwomp0 = loadImage("enemiesImages/thwomp0.png");
   thwomp1 = loadImage("enemiesImages/thwomp1.png");
+  cpStart = loadImage("images/cp0.png");
+  cpPressed = loadImage("images/cp1.png");
 
 
   //load actions
@@ -238,6 +245,12 @@ void loadWorld(PImage img) {
         enemies.add(cn);
         world.add(cn);
       }
+      //checkpoint
+      else if (c == mgreen) {
+        FCp cp = new FCp(x * gridSize, y * gridSize);
+        enemies.add(cp);
+        world.add(cp);
+      }
     }
   }
 }
@@ -255,6 +268,8 @@ void draw() {
   fill(0);
   textSize(30);
   text(coini, 50, 50);
+
+  text(lives, 100, 50);
 }
 
 void makeHammer() {
@@ -299,4 +314,22 @@ void gamereset() {
   world.setGravity(0, 900);
   loadWorld(map);
   loadPlayer();
+  coini = 0;
+  lives = 3;
+}
+
+void reset() {
+  if (lives > 1) {
+    if (cpTouched == true) {
+      player.setPosition(cpogx, cpogy);
+      player.setVelocity(0, 0);
+      direction = R;
+      lives = lives - 1;
+    } else{
+      gamereset();
+    }
+     
+  } else {
+    gamereset();
+  }
 }

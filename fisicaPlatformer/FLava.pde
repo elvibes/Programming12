@@ -23,7 +23,7 @@ class FLava extends FGameObject {
   
   void collide() {
     if (isTouching("player")) {
-      player.setPosition(0, 200);
+      reset();
     }
   }
 }
