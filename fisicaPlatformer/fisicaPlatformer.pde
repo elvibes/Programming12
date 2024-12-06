@@ -18,10 +18,11 @@ color dgreen = #002e0b;
 color lgrey = #b4b4b4;
 color yorange = #ffc342;
 color mgreen = #00992b;
+color dred = #990030;
 
 
 PImage map, ice, stone, treeTrunk, treeIntersect, treeMiddle, treeEndWest, treeEndEast, spike, bridge;
-PImage trampoline, hammerimg, thwomp0, thwomp1, cpStart, cpPressed;
+PImage trampoline, hammerimg, thwomp0, thwomp1, cpStart, cpPressed, tube;
 PImage[] idle, jump, run, action;
 PImage[] goomba;
 PImage[] lava;
@@ -30,6 +31,12 @@ PImage[] coin;
 
 final int L = -1;
 final int R = 1;
+
+int mode;
+final int INTRO = 1;
+final int LEVEL1 = 2;
+final int LEVEL2 = 3;
+final int GAMEOVER = 4;
 
 int direction = R;
 
@@ -55,6 +62,8 @@ boolean cpTouched;
 void setup() {
   size(600, 600);
   Fisica.init(this);
+  
+  mode = LEVEL1;
 
   coini = 0;
   lives = 3;
@@ -78,6 +87,7 @@ void setup() {
   thwomp1 = loadImage("enemiesImages/thwomp1.png");
   cpStart = loadImage("images/cp0.png");
   cpPressed = loadImage("images/cp1.png");
+  tube = loadImage("images/tube.png");
 
 
   //load actions
@@ -251,6 +261,12 @@ void loadWorld(PImage img) {
         enemies.add(cp);
         world.add(cp);
       }
+      //tube
+      else if (c == dred) {
+        FTube tb = new FTube(x * gridSize, y * gridSize);
+        enemies.add(tb);
+        world.add(tb);
+      }
     }
   }
 }
@@ -264,6 +280,16 @@ void draw() {
   background(white);
   drawWorld();
   actWorld();
+  
+  if (mode == INTRO) {
+    intro();
+  } else if (mode == LEVEL1) {
+    level1();
+  } else if (mode == LEVEL2) {
+    level2();
+  } else if (mode == GAMEOVER) {
+    gameover();
+  }
 
   fill(0);
   textSize(30);
@@ -310,12 +336,13 @@ void drawWorld() {
 void gamereset() {
   terrain = new ArrayList<FGameObject>();
   enemies = new ArrayList<FGameObject>();
-  world = new FWorld(-2000, -2000, 2000, 2000);
+  world = new FWorld(-3000, -3000, 3000, 3000);
   world.setGravity(0, 900);
   loadWorld(map);
   loadPlayer();
   coini = 0;
   lives = 3;
+  cpTouched = false;
 }
 
 void reset() {
@@ -325,11 +352,12 @@ void reset() {
       player.setVelocity(0, 0);
       direction = R;
       lives = lives - 1;
-    } else{
+    } else {
       gamereset();
     }
      
   } else {
     gamereset();
+    cpTouched = false;
   }
 }

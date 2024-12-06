@@ -1,0 +1,7 @@
+void level1() {
+  
+}
+
+void level1Clicks() {
+  mode = LEVEL2;
+}
