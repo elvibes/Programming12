@@ -4,5 +4,6 @@ void intro() {
 
 
 void introClicks() {
+  level1setup();
   mode = LEVEL1;
 }

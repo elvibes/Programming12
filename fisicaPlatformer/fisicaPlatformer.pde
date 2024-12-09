@@ -21,7 +21,7 @@ color mgreen = #00992b;
 color dred = #990030;
 
 
-PImage map, ice, stone, treeTrunk, treeIntersect, treeMiddle, treeEndWest, treeEndEast, spike, bridge;
+PImage map, map2, ice, stone, treeTrunk, treeIntersect, treeMiddle, treeEndWest, treeEndEast, spike, bridge;
 PImage trampoline, hammerimg, thwomp0, thwomp1, cpStart, cpPressed, tube;
 PImage[] idle, jump, run, action;
 PImage[] goomba;
@@ -71,6 +71,7 @@ void setup() {
 
 
   map = loadImage("map.png");
+  map2 = loadImage("map2.png");
   stone = loadImage("images/stone.png");
   ice = loadImage("images/ice.png");
   ice.resize(32, 32);
@@ -340,6 +341,19 @@ void gamereset() {
   world.setGravity(0, 900);
   loadWorld(map);
   loadPlayer();
+  coini = 0;
+  lives = 3;
+  cpTouched = false;
+}
+
+void game2reset() {
+  terrain = new ArrayList<FGameObject>();
+  enemies = new ArrayList<FGameObject>();
+  world = new FWorld(-3000, -3000, 3000, 3000);
+  world.setGravity(0, 900);
+  loadWorld(map2);
+  loadPlayer();
+  player.setPosition(32, 350);
   coini = 0;
   lives = 3;
   cpTouched = false;

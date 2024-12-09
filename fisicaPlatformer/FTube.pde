@@ -16,11 +16,9 @@ class FTube extends FGameObject {
 
   void collide() {
     if (isTouching("player")) {
-      if (player.getY() < getY() - gridSize/2) {
-        setSensor(true);
-        player.setVelocity(player.getVelocityX(), 100);
-      } else {
-        setSensor(false);
+      if (mode == LEVEL1 && player.getY() < getY() - gridSize/2) {
+        level2setup();
+        mode = LEVEL2;
       }
     }
   }
