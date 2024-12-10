@@ -7,5 +7,5 @@ void level1Clicks() {
 }
 
 void level1setup() {
-  gamereset();
+  game1reset();
 }

@@ -19,10 +19,11 @@ color lgrey = #b4b4b4;
 color yorange = #ffc342;
 color mgreen = #00992b;
 color dred = #990030;
+color peach = #e5aa7a;
 
 
 PImage map, map2, ice, stone, treeTrunk, treeIntersect, treeMiddle, treeEndWest, treeEndEast, spike, bridge;
-PImage trampoline, hammerimg, thwomp0, thwomp1, cpStart, cpPressed, tube;
+PImage trampoline, hammerimg, thwomp0, thwomp1, cpStart, cpPressed, tube, on, off;
 PImage[] idle, jump, run, action;
 PImage[] goomba;
 PImage[] lava;
@@ -47,7 +48,7 @@ FBox thSensor;
 
 
 int gridSize = 32;
-float zoom = 1;
+float zoom = 1.2;
 //keyboard variables
 boolean wkey, skey, akey, dkey, qkey, ekey, spacekey, upkey, downkey, leftkey, rightkey;
 
@@ -57,7 +58,7 @@ ArrayList<FGameObject> enemies;
 
 int coini, lives;
 float cpogx, cpogy;
-boolean cpTouched;
+boolean cpTouched, switchTouched;
 
 void setup() {
   size(600, 600);
@@ -68,6 +69,7 @@ void setup() {
   coini = 0;
   lives = 3;
   cpTouched = false;
+  switchTouched = false;
 
 
   map = loadImage("map.png");
@@ -89,6 +91,8 @@ void setup() {
   cpStart = loadImage("images/cp0.png");
   cpPressed = loadImage("images/cp1.png");
   tube = loadImage("images/tube.png");
+  on = loadImage("images/on.png");
+  off = loadImage("images/off.png");
 
 
   //load actions
@@ -268,6 +272,12 @@ void loadWorld(PImage img) {
         enemies.add(tb);
         world.add(tb);
       }
+      //switch
+      else if (c == peach) {
+        FSwitch sw = new FSwitch(x * gridSize, y * gridSize);
+        enemies.add(sw);
+        world.add(sw);
+      }
     }
   }
 }
@@ -350,6 +360,16 @@ void gamereset() {
   loadPlayer();
   coini = 0;
   lives = 3;
+  cpTouched = false;
+}
+
+void game1reset() {
+  terrain = new ArrayList<FGameObject>();
+  enemies = new ArrayList<FGameObject>();
+  world = new FWorld(-3000, -3000, 3000, 3000);
+  world.setGravity(0, 900);
+  loadWorld(map);
+  loadPlayer();
   cpTouched = false;
 }
 
