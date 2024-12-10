@@ -279,6 +279,9 @@ void loadPlayer() {
 
 void draw() {
   background(white);
+  if (mode == LEVEL2) {
+    background(black);
+  }
   drawWorld();
   actWorld();
   
@@ -292,7 +295,11 @@ void draw() {
     gameover();
   }
 
-  fill(0);
+  if (mode == LEVEL2) {
+    fill(white);
+  } else {
+    fill(0);
+  }
   textSize(30);
   text(coini, 50, 50);
 
@@ -353,9 +360,7 @@ void game2reset() {
   world.setGravity(0, 900);
   loadWorld(map2);
   loadPlayer();
-  player.setPosition(32, 350);
-  coini = 0;
-  lives = 3;
+  player.setPosition(190, 350);
   cpTouched = false;
 }
 

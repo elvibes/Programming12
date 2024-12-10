@@ -26,10 +26,6 @@ class FPlayer extends FGameObject {
       reset();
       lives = lives - 1;
     }
-    if (getY() > 800) {
-      reset();
-      lives = lives - 1;
-    }
 
     animate();
   }
