@@ -29,6 +29,8 @@ PImage[] goomba;
 PImage[] lava;
 PImage[] hammerbro;
 PImage[] coin;
+PImage[] koopa;
+PImage[] shell;
 
 final int L = -1;
 final int R = 1;
@@ -138,6 +140,14 @@ void setup() {
   hammerbro = new PImage[2];
   hammerbro[0] = loadImage("enemiesImages/hammerbro0.png");
   hammerbro[1] = loadImage("enemiesImages/hammerbro1.png");
+  
+  //koopa troopa
+  koopa = new PImage[5];
+  koopa[0] = loadImage("images/kp0.png");
+  koopa[1] = loadImage("images/kp1.png");
+  koopa[2] = loadImage("images/kp2.png");
+  koopa[3] = loadImage("images/kp3.png");
+  koopa[4] = loadImage("images/kp4.png");
 
   gamereset();
 }

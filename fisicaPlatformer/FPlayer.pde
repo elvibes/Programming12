@@ -6,7 +6,7 @@ class FPlayer extends FGameObject {
     super();
     frame = 0;
     direction = R;
-    setPosition(2000, 200);
+    setPosition(150, 200);
     setName("player");
     setFillColor(red);
     setRotatable(false);
@@ -49,17 +49,23 @@ class FPlayer extends FGameObject {
       setVelocity(-200, vy);
       action = run;
       direction = L;
+      if (switchTouched == true) {
+        setVelocity(-400, vy);
+      }
     }
     if (dkey) {
       setVelocity(200, vy);
       action = run;
       direction = R;
+      if (switchTouched == true) {
+        setVelocity(400, vy);
+      }
     }
     if (wkey && getVelocityY() == 0) {
-      setVelocity(vx, -370);
+      setVelocity(vx, -380);
     }
     if (skey) {
-      setVelocity(vx, 370);
+      setVelocity(vx, 380);
     }
     if (abs(vy) > 0.1) {
       action = jump;
