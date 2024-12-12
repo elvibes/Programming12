@@ -6,7 +6,7 @@ class FPlayer extends FGameObject {
     super();
     frame = 0;
     direction = R;
-    setPosition(150, 200);
+    setPosition(2150, 200);
     setName("player");
     setFillColor(red);
     setRotatable(false);

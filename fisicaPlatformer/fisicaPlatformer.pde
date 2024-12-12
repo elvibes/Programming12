@@ -20,6 +20,8 @@ color yorange = #ffc342;
 color mgreen = #00992b;
 color dred = #990030;
 color peach = #e5aa7a;
+color blossom = #f389f5;
+color sky = #0098dc;
 
 
 PImage map, map2, ice, stone, treeTrunk, treeIntersect, treeMiddle, treeEndWest, treeEndEast, spike, bridge;
@@ -47,6 +49,7 @@ FHammerBro hb;
 FBox hammer;
 FThwomp th;
 FBox thSensor;
+FKoopa kp;
 
 
 int gridSize = 32;
@@ -148,6 +151,13 @@ void setup() {
   koopa[2] = loadImage("images/kp2.png");
   koopa[3] = loadImage("images/kp3.png");
   koopa[4] = loadImage("images/kp4.png");
+  
+  //shell
+  shell = new PImage[4];
+  shell[0] = loadImage("images/kp0.png");
+  shell[1] = loadImage("images/kp1.png");
+  koopa[2] = loadImage("images/kp2.png");
+  koopa[3] = loadImage("images/kp3.png");
 
   gamereset();
 }
@@ -287,6 +297,19 @@ void loadWorld(PImage img) {
         FSwitch sw = new FSwitch(x * gridSize, y * gridSize);
         enemies.add(sw);
         world.add(sw);
+      }
+      //koopa troopa
+      else if (c == blossom) {
+        kp = new FKoopa(x * gridSize, y * gridSize);
+        enemies.add(kp);
+        world.add(kp);
+      }
+      //hammerbro wall
+      else if (c == sky) {
+        b.setName("kpwall");
+        b.setSensor(true);
+        b.setDrawable(false);
+        world.add(b);
       }
     }
   }
