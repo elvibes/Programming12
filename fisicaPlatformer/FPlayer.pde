@@ -50,7 +50,7 @@ class FPlayer extends FGameObject {
       action = run;
       direction = L;
       if (switchTouched == true) {
-        setVelocity(-400, vy);
+        setVelocity(-300, vy);
       }
     }
     if (dkey) {
@@ -58,7 +58,7 @@ class FPlayer extends FGameObject {
       action = run;
       direction = R;
       if (switchTouched == true) {
-        setVelocity(400, vy);
+        setVelocity(300, vy);
       }
     }
     if (wkey && getVelocityY() == 0) {

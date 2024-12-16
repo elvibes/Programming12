@@ -40,6 +40,8 @@ class FKoopa extends FGameObject {
       if (player.getY() < getY() - gridSize/2) {
         world.remove(this);
         enemies.remove(this);
+        enemies.add(sh);
+        world.add(sh);
         player.setVelocity(player.getVelocityX(), -300);
       } else {
         reset();

@@ -22,6 +22,7 @@ color dred = #990030;
 color peach = #e5aa7a;
 color blossom = #f389f5;
 color sky = #0098dc;
+color grape = #7a09fa;
 
 
 PImage map, map2, ice, stone, treeTrunk, treeIntersect, treeMiddle, treeEndWest, treeEndEast, spike, bridge;
@@ -50,6 +51,7 @@ FBox hammer;
 FThwomp th;
 FBox thSensor;
 FKoopa kp;
+FShell sh;
 
 
 int gridSize = 32;
@@ -69,7 +71,7 @@ void setup() {
   size(600, 600);
   Fisica.init(this);
   
-  mode = LEVEL1;
+  mode = LEVEL2;
 
   coini = 0;
   lives = 3;
@@ -154,12 +156,13 @@ void setup() {
   
   //shell
   shell = new PImage[4];
-  shell[0] = loadImage("images/kp0.png");
-  shell[1] = loadImage("images/kp1.png");
-  koopa[2] = loadImage("images/kp2.png");
-  koopa[3] = loadImage("images/kp3.png");
+  shell[0] = loadImage("images/shell0.png");
+  shell[1] = loadImage("images/shell1.png");
+  shell[2] = loadImage("images/shell2.png");
+  shell[3] = loadImage("images/shell3.png");
 
   gamereset();
+  level2setup();
 }
 
 void loadWorld(PImage img) {
@@ -311,6 +314,9 @@ void loadWorld(PImage img) {
         b.setDrawable(false);
         world.add(b);
       }
+      else if (c == grape) {
+        sh = new FShell(x * gridSize, y * gridSize);
+      }
     }
   }
 }
@@ -413,8 +419,9 @@ void game2reset() {
   world.setGravity(0, 900);
   loadWorld(map2);
   loadPlayer();
-  player.setPosition(190, 350);
+  player.setPosition(1190, 350);
   cpTouched = false;
+  
 }
 
 void reset() {
@@ -431,5 +438,6 @@ void reset() {
   } else {
     gamereset();
     cpTouched = false;
+    switchTouched = false;
   }
 }
