@@ -23,6 +23,7 @@ color peach = #e5aa7a;
 color blossom = #f389f5;
 color sky = #0098dc;
 color grape = #7a09fa;
+color aurora = #3003d9;
 
 
 PImage map, map2, ice, stone, treeTrunk, treeIntersect, treeMiddle, treeEndWest, treeEndEast, spike, bridge;
@@ -162,7 +163,7 @@ void setup() {
   shell[3] = loadImage("images/shell3.png");
 
   gamereset();
-  level2setup();
+  if (mode == LEVEL2) level2setup();
 }
 
 void loadWorld(PImage img) {

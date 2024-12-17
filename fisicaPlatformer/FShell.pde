@@ -27,9 +27,22 @@ class FShell extends FGameObject {
   }
 
   void collide() {
-    if (getX() > 2310) {
+    if (isTouching("lava")) {
       world.remove(this);
       enemies.remove(this);
+    }
+    if (isTouching("wall")) {
+      direction *= -1;
+      setPosition(getX() + direction, getY());
+    }
+    if (isTouching("player")) {
+      if (player.getY() < getY() - gridSize/2) {
+        world.remove(this);
+        enemies.remove(this);
+        player.setVelocity(player.getVelocityX(), -300);
+      } else {
+        reset();
+      }
     }
   }
 
