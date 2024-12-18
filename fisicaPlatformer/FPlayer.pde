@@ -26,6 +26,11 @@ class FPlayer extends FGameObject {
       reset();
       lives = lives - 1;
     }
+    if (direction == L) {
+      booMove = false;
+    } else {
+      booMove = true;
+    }
 
     animate();
   }

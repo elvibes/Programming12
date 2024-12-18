@@ -24,10 +24,11 @@ color blossom = #f389f5;
 color sky = #0098dc;
 color grape = #7a09fa;
 color aurora = #3003d9;
+color beige = #f9e6cf;
 
 
 PImage map, map2, ice, stone, treeTrunk, treeIntersect, treeMiddle, treeEndWest, treeEndEast, spike, bridge;
-PImage trampoline, hammerimg, thwomp0, thwomp1, cpStart, cpPressed, tube, on, off;
+PImage trampoline, hammerimg, thwomp0, thwomp1, cpStart, cpPressed, tube, on, off, happyboo;
 PImage[] idle, jump, run, action;
 PImage[] goomba;
 PImage[] lava;
@@ -35,6 +36,7 @@ PImage[] hammerbro;
 PImage[] coin;
 PImage[] koopa;
 PImage[] shell;
+PImage[] boo;
 
 final int L = -1;
 final int R = 1;
@@ -53,6 +55,7 @@ FThwomp th;
 FBox thSensor;
 FKoopa kp;
 FShell sh;
+FBoo bo;
 
 
 int gridSize = 32;
@@ -66,18 +69,19 @@ ArrayList<FGameObject> enemies;
 
 int coini, lives;
 float cpogx, cpogy;
-boolean cpTouched, switchTouched;
+boolean cpTouched, switchTouched, booMove;
 
 void setup() {
   size(600, 600);
   Fisica.init(this);
-  
-  mode = LEVEL2;
+
+  mode = LEVEL1;
 
   coini = 0;
   lives = 3;
   cpTouched = false;
   switchTouched = false;
+  booMove = true;
 
 
   map = loadImage("map.png");
@@ -101,6 +105,8 @@ void setup() {
   tube = loadImage("images/tube.png");
   on = loadImage("images/on.png");
   off = loadImage("images/off.png");
+  happyboo = loadImage("images/happyboo.png");
+  happyboo.resize(42, 32);
 
 
   //load actions
@@ -146,7 +152,7 @@ void setup() {
   hammerbro = new PImage[2];
   hammerbro[0] = loadImage("enemiesImages/hammerbro0.png");
   hammerbro[1] = loadImage("enemiesImages/hammerbro1.png");
-  
+
   //koopa troopa
   koopa = new PImage[5];
   koopa[0] = loadImage("images/kp0.png");
@@ -154,13 +160,20 @@ void setup() {
   koopa[2] = loadImage("images/kp2.png");
   koopa[3] = loadImage("images/kp3.png");
   koopa[4] = loadImage("images/kp4.png");
-  
+
   //shell
   shell = new PImage[4];
   shell[0] = loadImage("images/shell0.png");
   shell[1] = loadImage("images/shell1.png");
   shell[2] = loadImage("images/shell2.png");
   shell[3] = loadImage("images/shell3.png");
+
+  //boo
+  boo = new PImage[4];
+  boo[0] = loadImage("images/boo0.png");
+  boo[1] = loadImage("images/boo1.png");
+  boo[2] = loadImage("images/boo2.png");
+  boo[3] = loadImage("images/boo3.png");
 
   gamereset();
   if (mode == LEVEL2) level2setup();
@@ -315,8 +328,15 @@ void loadWorld(PImage img) {
         b.setDrawable(false);
         world.add(b);
       }
+      //shell
       else if (c == grape) {
         sh = new FShell(x * gridSize, y * gridSize);
+      }
+      //boo
+      else if (c == beige) {
+        bo = new FBoo(x * gridSize, y * gridSize);
+        enemies.add(bo);
+        world.add(bo);
       }
     }
   }
@@ -334,7 +354,7 @@ void draw() {
   }
   drawWorld();
   actWorld();
-  
+
   if (mode == INTRO) {
     intro();
   } else if (mode == LEVEL1) {
@@ -420,9 +440,8 @@ void game2reset() {
   world.setGravity(0, 900);
   loadWorld(map2);
   loadPlayer();
-  player.setPosition(1190, 350);
+  player.setPosition(190, 350);
   cpTouched = false;
-  
 }
 
 void reset() {
@@ -435,7 +454,6 @@ void reset() {
     } else {
       gamereset();
     }
-     
   } else {
     gamereset();
     cpTouched = false;
