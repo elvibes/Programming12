@@ -478,18 +478,6 @@ void drawWorld() {
   popMatrix();
 }
 
-//void gamereset() {
-//  terrain = new ArrayList<FGameObject>();
-//  enemies = new ArrayList<FGameObject>();
-//  world = new FWorld(-3000, -3000, 3000, 3000);
-//  world.setGravity(0, 900);
-//  loadWorld(map);
-//  loadPlayer();
-//  coini = 0;
-
-//  cpTouched = false;
-//}
-
 void game1reset() {
   terrain = new ArrayList<FGameObject>();
   enemies = new ArrayList<FGameObject>();

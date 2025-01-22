@@ -18,12 +18,12 @@ class FFlower extends FGameObject {
     if (isTouching("player") && powerTouched == true) {
       world.remove(this);
       enemies.remove(this);
+      setDrawable(false);
       iceMode = true;
     }
 
     if (iceMode == true) {
       if (ekey && frameCount % 10 == 0) {
-        
         makeIceBall();
       }
     }
