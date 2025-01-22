@@ -46,6 +46,12 @@ class FBoo extends FGameObject {
       world.remove(this);
       enemies.remove(this);
     }
+    
+    if (isTouching("iceb")) {
+      world.remove(this);
+      enemies.remove(this);
+    }
+    
     if (isTouching("player") && player.getX() > 1300) {
       if (player.getY() < getY() - gridSize/2) {
         world.remove(this);

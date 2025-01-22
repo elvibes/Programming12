@@ -31,6 +31,12 @@ class FShell extends FGameObject {
       world.remove(this);
       enemies.remove(this);
     }
+    
+    if (isTouching("iceb")) {
+      world.remove(this);
+      enemies.remove(this);
+    }
+    
     if (isTouching("wall")) {
       direction *= -1;
       setPosition(getX() + direction, getY());

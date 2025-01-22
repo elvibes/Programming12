@@ -47,6 +47,11 @@ class FKoopa extends FGameObject {
         reset();
       }
     }
+    
+    if (isTouching("iceb")) {
+      world.remove(this);
+      enemies.remove(this);
+    }
   }
 
   void move() {

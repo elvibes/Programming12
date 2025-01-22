@@ -36,6 +36,11 @@ class FHammerBro extends FGameObject {
       setPosition(getX() + direction*1.5, getY());
       makeHammer();
     }
+    
+    if (isTouching("iceb")) {
+      world.remove(this);
+      enemies.remove(this);
+    }
   }
 
   void move() {

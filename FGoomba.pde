@@ -27,6 +27,10 @@ class FGoomba extends FGameObject {
   }
 
   void collide() {
+    if (isTouching("iceb")) {
+      world.remove(this);
+      enemies.remove(this);
+    }
     if (isTouching("wall")) {
       direction *= -1;
       setPosition(getX() + direction, getY());

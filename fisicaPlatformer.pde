@@ -27,10 +27,11 @@ color aurora = #3003d9;
 color beige = #f9e6cf;
 color plum = #3b1443;
 color mint = #6febb3;
+color leaf = #baba30;
 
 
 PImage map, map2, ice, stone, treeTrunk, treeIntersect, treeMiddle, treeEndWest, treeEndEast, spike, bridge;
-PImage trampoline, hammerimg, thwomp0, thwomp1, cpStart, cpPressed, tube, on, off, happyboo, poweroff, iceflower;
+PImage trampoline, hammerimg, thwomp0, thwomp1, cpStart, cpPressed, tube, on, off, happyboo, poweroff, iceflower, iceball, bkgmario, lose, winimg, heart, skybkg, gold;
 PImage[] idle, jump, run, action;
 PImage[] goomba;
 PImage[] lava;
@@ -61,6 +62,8 @@ FShell sh;
 FBoo bo;
 FSuperBlock pw;
 FFlower fl;
+FBox iceb;
+FCrown crown;
 
 
 int gridSize = 32;
@@ -74,13 +77,13 @@ ArrayList<FGameObject> enemies;
 
 int coini, lives;
 float cpogx, cpogy;
-boolean cpTouched, switchTouched, booMove, powerTouched;
+boolean cpTouched, switchTouched, booMove, powerTouched, iceMode, win;
 
 void setup() {
   size(600, 600);
   Fisica.init(this);
 
-  mode = LEVEL1;
+  mode = INTRO;
 
   coini = 0;
   lives = 3;
@@ -88,6 +91,8 @@ void setup() {
   switchTouched = false;
   booMove = true;
   powerTouched = false;
+  iceMode = false;
+  win = false;
 
 
   map = loadImage("map.png");
@@ -115,7 +120,19 @@ void setup() {
   happyboo.resize(42, 32);
   poweroff = loadImage("images/nopower.png");
   iceflower = loadImage("images/iceflower.png");
-
+  iceball = loadImage("images/iceball.png");
+  iceball.resize(16, 16);
+  bkgmario = loadImage("images/mariobros.png");
+  bkgmario.resize(600, 600);
+  lose = loadImage("images/lose.png");
+  lose.resize(600, 600);
+  skybkg = loadImage("images/skybkg.png");
+  skybkg.resize(600, 600);
+  heart = loadImage("images/heart.png");
+  heart.resize(40, 40);
+  gold = loadImage("images/gold.png");
+  winimg = loadImage("images/winimg.png");
+  winimg.resize(600, 600);
 
   //load actions
   //mario
@@ -190,7 +207,7 @@ void setup() {
   power[2] = loadImage("images/super2.png");
   power[3] = loadImage("images/super3.png");
 
-  gamereset();
+  game1reset();
   if (mode == LEVEL2) level2setup();
 }
 
@@ -363,6 +380,12 @@ void loadWorld(PImage img) {
       else if (c == mint) {
         fl = new FFlower(x * gridSize, y * gridSize);
       }
+      //crown
+      else if (c == leaf) {
+        crown = new FCrown(x * gridSize, y * gridSize);
+        enemies.add(crown);
+        world.add(crown);
+      }
     }
   }
 }
@@ -373,10 +396,7 @@ void loadPlayer() {
 }
 
 void draw() {
-  background(white);
-  if (mode == LEVEL2) {
-    background(black);
-  }
+  background(skybkg);
   drawWorld();
   actWorld();
 
@@ -390,15 +410,22 @@ void draw() {
     gameover();
   }
 
-  if (mode == LEVEL2) {
-    fill(white);
-  } else {
-    fill(0);
-  }
   textSize(30);
-  text(coini, 50, 50);
+  fill(white);
+  if (mode == LEVEL2) {
 
-  text(lives, 100, 50);
+    image(coin[0], 25, 25);
+    image(heart, 150, 20);
+    text(coini, 70, 50);
+    text(lives, 200, 50);
+  } else if (mode == LEVEL1) {
+
+    image(coin[0], 25, 25);
+    text(coini, 70, 50);
+    image(heart, 150, 20);
+    text(lives, 200, 50);
+  } else {
+  }
 }
 
 void makeHammer() {
@@ -414,6 +441,21 @@ void makeHammer() {
 
   world.add(hammer);
 }
+
+void makeIceBall() {
+  iceb = new FBox(gridSize, gridSize);
+  iceb.attachImage(iceball);
+  iceb.setPosition(player.getX(), player.getY());
+  iceb.setName("iceb");
+
+  iceb.setAngularVelocity(5);
+  if (player.direction == R && ekey) iceb.setVelocity(300, -200);
+  if (player.direction == L && ekey) iceb.setVelocity(-300, -200);
+  iceb.setSensor(true);
+
+  world.add(iceb);
+}
+
 
 void actWorld() {
   player.act();
@@ -436,17 +478,17 @@ void drawWorld() {
   popMatrix();
 }
 
-void gamereset() {
-  terrain = new ArrayList<FGameObject>();
-  enemies = new ArrayList<FGameObject>();
-  world = new FWorld(-3000, -3000, 3000, 3000);
-  world.setGravity(0, 900);
-  loadWorld(map);
-  loadPlayer();
-  coini = 0;
-  lives = 3;
-  cpTouched = false;
-}
+//void gamereset() {
+//  terrain = new ArrayList<FGameObject>();
+//  enemies = new ArrayList<FGameObject>();
+//  world = new FWorld(-3000, -3000, 3000, 3000);
+//  world.setGravity(0, 900);
+//  loadWorld(map);
+//  loadPlayer();
+//  coini = 0;
+
+//  cpTouched = false;
+//}
 
 void game1reset() {
   terrain = new ArrayList<FGameObject>();
@@ -456,6 +498,9 @@ void game1reset() {
   loadWorld(map);
   loadPlayer();
   cpTouched = false;
+  switchTouched = false;
+  powerTouched = false;
+  iceMode = false;
 }
 
 void game2reset() {
@@ -477,12 +522,15 @@ void reset() {
       direction = R;
       lives = lives - 1;
     } else {
-      gamereset();
+      lives = lives - 1;
+      player.setPosition(150, 200);
     }
   } else {
-    gamereset();
+    mode = GAMEOVER;
     cpTouched = false;
     switchTouched = false;
     powerTouched = false;
+    iceMode = false;
+    win = false;
   }
 }
