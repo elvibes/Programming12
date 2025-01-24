@@ -4,6 +4,9 @@ import java.awt.Robot;
 color black = #000000;
 color white = #FFFFFF;
 
+//textures
+PImage mossyStone;
+
 //map variables
 int gridSize;
 PImage map;
@@ -50,7 +53,6 @@ void draw() {
   drawFocalPoint();
   controlCamera();
   drawMap();
-  
 }
 
 void drawMap() {
@@ -66,8 +68,7 @@ void drawMap() {
         popMatrix();
       }
     }
-  }
-  
+  } 
 }
 
 void drawFocalPoint() {
