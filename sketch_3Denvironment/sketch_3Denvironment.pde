@@ -1,11 +1,12 @@
 import java.awt.Robot;
 
 //color pallette
-color black = #000000;
+color black = #000000; //blackstone
 color white = #FFFFFF;
+color grayblue = #7092be; //mossystone
 
 //textures
-PImage mossyStone;
+PImage mossyStone, blackstone, sand;
 
 //map variables
 int gridSize;
@@ -23,7 +24,7 @@ void setup() {
   textureMode(NORMAL);
   wkey = akey = skey = dkey = false;
   eyeX = width/2;
-  eyeY = height/2;
+  eyeY = 9*height/10;
   eyeZ = 0;
   focusX = width/2;
   focusY = height/2;
@@ -40,16 +41,24 @@ void setup() {
     e.printStackTrace();
   }
   skipFrame = false;
-  
+
   //initialize map
   map = loadImage("map.png");
   gridSize = 100;
+
+  mossyStone = loadImage("moss.png");
+  blackstone = loadImage("blackstone.png");
+  sand = loadImage("sand.png");
 }
 
 void draw() {
   background(0);
+  
+  pointLight(255, 255, 255, eyeX, eyeY, eyeZ);
+  
   camera(eyeX, eyeY, eyeZ, focusX, focusY, focusZ, upX, upY, upZ);
-  drawFloor();
+  drawFloor(-2000, 2000, height, gridSize);
+  drawFloor(-2000, 2000, height-gridSize*4, gridSize);
   drawFocalPoint();
   controlCamera();
   drawMap();
@@ -59,16 +68,13 @@ void drawMap() {
   for (int x = 0; x < map.width; x++) {
     for (int y = 0; y < map.height; y++) {
       color c = map.get(x, y);
-      if (c!= white) {
-        pushMatrix();
-        fill(c);
-        stroke(100);
-        translate(x*gridSize-2000, height/2, y*gridSize-2000);
-        box(gridSize, height, gridSize);
-        popMatrix();
+      if (c == grayblue || c == black) {
+        texturedCube(x*gridSize-2000, height-gridSize, y*gridSize-2000, mossyStone, gridSize);
+        texturedCube(x*gridSize-2000, height-gridSize*2, y*gridSize-2000, mossyStone, gridSize);
+        texturedCube(x*gridSize-2000, height-gridSize*3, y*gridSize-2000, mossyStone, gridSize);
       }
     }
-  } 
+  }
 }
 
 void drawFocalPoint() {
@@ -78,12 +84,17 @@ void drawFocalPoint() {
   popMatrix();
 }
 
-void drawFloor() {
-  background(0);
+void drawFloor(int start, int end, int level, int gap) {
   stroke(255);
-  for (int x = -2000; x <= 2000; x = x + 100) {
-    line(x, height, -2000, x, height, 2000);
-    line(-2000, height, x, 2000, height, x);
+  int x = start;
+  int z = start;
+  while (z < end) {
+    texturedCube(x, level, z, sand, gap);
+    x = x + gap;
+    if (x >= end) {
+      x = start;
+      z = z + gap;
+    }
   }
 }
 
@@ -104,19 +115,19 @@ void controlCamera() {
     eyeX = eyeX - cos(leftRightHeadAngle - PI/2)*10;
     eyeZ = eyeZ - sin(leftRightHeadAngle - PI/2)*10;
   }
-  
+
   if (skipFrame == false) {
     leftRightHeadAngle = leftRightHeadAngle + (mouseX - pmouseX)*0.01;
     upDownHeadAngle = upDownHeadAngle + (mouseY - pmouseY)*0.01;
   }
-  
+
   if (upDownHeadAngle > PI/2.5) upDownHeadAngle = PI/2.5;
   if (upDownHeadAngle < -PI/2.5) upDownHeadAngle = -PI/2.5;
-  
+
   focusX = eyeX + cos(leftRightHeadAngle)*300;
   focusZ = eyeZ + sin(leftRightHeadAngle)*300;
   focusY = eyeY + tan(upDownHeadAngle)*300;
-  
+
   if (mouseX < 2) {
     rbt.mouseMove(width-3, mouseY);
     skipFrame = true;
@@ -126,7 +137,7 @@ void controlCamera() {
   } else {
     skipFrame = false;
   }
-  
+
   println(eyeX, eyeY, eyeZ);
 }
 
@@ -143,5 +154,4 @@ void keyReleased() {
   if (key == 'A' || key == 'a') akey = false;
   if (key == 'S' || key == 's') skey = false;
   if (key == 'D' || key == 'd') dkey = false;
-  
 }

@@ -56,7 +56,7 @@ void texturedCube(float x, float y, float z, PImage top, PImage side, PImage bot
   noStroke();
   
   beginShape(QUADS);
-  texture(texture);
+  texture(top);
   
   //top
   //     x, y, z, tx, ty
