@@ -37,6 +37,10 @@ void controlCamera() {
   } else {
     skipFrame = false;
   }
+  
+  if (spacekey) {
+    objects.add(new Bullet());
+  }
 
   println(eyeX, eyeY, eyeZ);
 }

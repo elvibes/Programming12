@@ -15,14 +15,16 @@ PImage map;
 boolean skipFrame;
 Robot rbt;
 
-boolean wkey, akey, skey, dkey;
+boolean wkey, akey, skey, dkey, spacekey;
 float eyeX, eyeY, eyeZ, focusX, focusY, focusZ, upX, upY, upZ;
 float leftRightHeadAngle, upDownHeadAngle;
+
+ArrayList<GameObject> objects;
 
 void setup() {
   fullScreen(P3D);
   textureMode(NORMAL);
-  wkey = akey = skey = dkey = false;
+  wkey = akey = skey = dkey = spacekey = false;
   eyeX = width/2;
   eyeY = 9*height/10;
   eyeZ = 0;
@@ -45,10 +47,13 @@ void setup() {
   //initialize map
   map = loadImage("map.png");
   gridSize = 100;
+  
+  objects = new ArrayList<GameObject>();
 
   mossyStone = loadImage("moss.png");
   blackstone = loadImage("blackstone.png");
   sand = loadImage("sand.png");
+  
 }
 
 void draw() {
@@ -62,14 +67,18 @@ void draw() {
   drawFocalPoint();
   controlCamera();
   drawMap();
-}
-
-
-
-void drawFocalPoint() {
-  pushMatrix();
-  translate(focusX, focusY, focusZ);
-  fill(255, 0, 0);
-  sphere(5);
-  popMatrix();
+  
+  int i = 0;
+  while (i < objects.size()) {
+    GameObject obj = objects.get(i);
+    obj.act();
+    obj.show();
+   
+    if (obj.lives == 0) {
+      objects.remove(i);
+    } else {
+      i++;
+    }
+  }
+  
 }
